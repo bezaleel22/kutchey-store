@@ -18,8 +18,10 @@
     "noEmit": true,
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
+    "types": ["vite/client","bun-types"]
   },
   "files": ["./.eslintrc.cjs"],
-  "include": ["src", "./*.d.ts", "./*.config.ts"]
+  "exclude": ["src/generated/graphql.ts"],
+  "include": ["src", "./*.d.ts", "./*.config.ts", "codegen.ts", "vendure"]
 }

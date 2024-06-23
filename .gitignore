@@ -3,10 +3,12 @@
 /lib
 /lib-types
 /server
+/frp
 
 # Development
 node_modules
 *.local
+.env
 
 # Cache
 .cache
