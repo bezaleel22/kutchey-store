@@ -1,5 +1,5 @@
-import { $, component$, QRL } from '@builder.io/qwik';
-import { FacetWithValues } from '~/types';
+import { $, component$, type QRL } from '@builder.io/qwik';
+import type { FacetWithValues } from '~/types';
 import CloseIcon from '../icons/CloseIcon';
 import MinusIcon from '../icons/MinusIcon';
 import PlusIcon from '../icons/PlusIcon';

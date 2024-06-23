@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Order } from '~/generated/graphql';
+import type { Order } from '~/generated/graphql';
 import CartPrice from './CartPrice';
 
 export default component$<{

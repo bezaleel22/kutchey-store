@@ -5,8 +5,8 @@ import {
 	DEFAULT_METADATA_URL,
 } from '~/constants';
 import { ENV_VARIABLES } from '~/env';
-import { SearchResponse } from '~/generated/graphql';
-import { ActiveCustomer, FacetWithValues, ShippingAddress } from '~/types';
+import type { SearchResponse } from '~/generated/graphql';
+import type { ActiveCustomer, FacetWithValues, ShippingAddress } from '~/types';
 
 export const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 

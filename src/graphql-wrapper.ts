@@ -1,6 +1,5 @@
 // import { getSdk, type LogicalOperator } from '~/generated/graphql';
-import { getSdk as getAdminSdk } from '~/generated/graphql-admin';
-import { getSdk as getShopSdk, type LogicalOperator } from '~/generated/graphql-shop';
+import { getSdk as getShopSdk, type LogicalOperator } from '~/generated/graphql';
 import { requester } from '~/utils/api';
 
 export type SortDirection = 'DESC' | 'ASC';
@@ -27,5 +26,3 @@ export interface Options {
 
 // @ts-ignore
 export const shopSdk = getShopSdk<Options>(requester);
-// @ts-ignore
-export const adminSdk = getAdminSdk<Options>(requester);

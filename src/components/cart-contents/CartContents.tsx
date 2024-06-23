@@ -2,7 +2,7 @@ import { component$, useComputed$, useContext, useSignal, useTask$ } from '@buil
 import { Link, useLocation, useNavigate } from '@builder.io/qwik-city';
 import { Image } from 'qwik-image';
 import { APP_STATE } from '~/constants';
-import { Order } from '~/generated/graphql';
+import type { Order } from '~/generated/graphql';
 import { adjustOrderLineMutation, removeOrderLineMutation } from '~/providers/shop/orders/order';
 import { isCheckoutPage } from '~/utils';
 import Price from '../products/Price';
@@ -14,15 +14,15 @@ export default component$<{
 	const location = useLocation();
 	const appState = useContext(APP_STATE);
 	const currentOrderLineSignal = useSignal<{ id: string; value: number }>();
-	const rowsSignal = useComputed$(() => order?.lines || appState.activeOrder?.lines || []);
+	const rowsSignal = useComputed$(() => order?.lines || appState.activeOrder.lines || []);
 	const isInEditableUrl = !isCheckoutPage(location.url.toString()) || !order;
-	const currencyCode = order?.currencyCode || appState.activeOrder?.currencyCode || 'USD';
+	const currencyCode = order?.currencyCode || appState.activeOrder.currencyCode || 'USD';
 
 	useTask$(({ track, cleanup }) => {
 		track(() => currentOrderLineSignal.value);
 		let id: NodeJS.Timeout;
 		if (currentOrderLineSignal.value) {
-			id = setTimeout(async () => {
+			setTimeout(async () => {
 				appState.activeOrder = await adjustOrderLineMutation(
 					currentOrderLineSignal.value!.id,
 					currentOrderLineSignal.value!.value
@@ -110,7 +110,7 @@ export default component$<{
 												onClick$={async () => {
 													appState.activeOrder = await removeOrderLineMutation(line.id);
 													if (
-														appState.activeOrder?.lines?.length === 0 &&
+														appState.activeOrder.lines.length === 0 &&
 														isCheckoutPage(location.url.toString())
 													) {
 														appState.showCart = false;

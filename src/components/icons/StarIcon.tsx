@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { Review } from '~/types';
+import type { Review } from '~/types';
 
 export default component$<{ rating: number; review: Review }>(({ review, rating }) => {
 	return (

@@ -55,7 +55,7 @@
   "useTask": {
     "scope": "javascriptreact,typescriptreact",
     "prefix": "quseTask$",
-    "description": "useTask$() function hook",
+    "description": "useVisibleTask$() function hook",
     "body": [
       "useTask$(({ track }) => {",
       "  track(() => $1);",

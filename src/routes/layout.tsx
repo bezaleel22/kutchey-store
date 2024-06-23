@@ -7,15 +7,17 @@ import {
 	useStore,
 	useVisibleTask$,
 } from '@builder.io/qwik';
-import { RequestHandler, routeLoader$ } from '@builder.io/qwik-city';
-import { ImageTransformerProps, useImageProvider } from 'qwik-image';
+import type { RequestHandler} from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
+import type { ImageTransformerProps} from 'qwik-image';
+import { useImageProvider } from 'qwik-image';
 import Menu from '~/components/menu/Menu';
 import { APP_STATE, CUSTOMER_NOT_DEFINED_ID, IMAGE_RESOLUTIONS } from '~/constants';
-import { Order } from '~/generated/graphql';
+import type { Order } from '~/generated/graphql';
 import { getAvailableCountriesQuery } from '~/providers/shop/checkout/checkout';
 import { getCollections } from '~/providers/shop/collections/collections';
 import { getActiveOrderQuery } from '~/providers/shop/orders/order';
-import { ActiveCustomer, AppState } from '~/types';
+import type { ActiveCustomer, AppState } from '~/types';
 import { extractLang } from '~/utils/i18n';
 import Cart from '../components/cart/Cart';
 import Footer from '../components/footer/footer';

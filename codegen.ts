@@ -14,13 +14,13 @@ const config: CodegenConfig = {
 	],
   documents: ['"src/providers/shop/**/*.{ts,tsx}"', '!src/generated/*'],
   generates: {
-    'src/generated/': {
+    'src/generated/graphql.ts': {
       config: {
 				enumsAsConst: true,
 			},
       plugins: ['typescript', 'typescript-operations', 'typescript-generic-sdk'],
     },
-		'src/generated/schema-shop.graphql': {
+		'src/generated/schema.graphql': {
 			plugins: ['schema-ast'],
 		},
   }

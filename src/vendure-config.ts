@@ -2,13 +2,13 @@ import {
     dummyPaymentHandler,
     DefaultJobQueuePlugin,
     DefaultSearchPlugin,
-    VendureConfig,
+    type VendureConfig,
 } from '@vendure/core';
 
 import { defaultEmailHandlers, EmailPlugin } from '@vendure/email-plugin';
 import { AssetServerPlugin } from '@vendure/asset-server-plugin';
 import { AdminUiPlugin } from '@vendure/admin-ui-plugin';
-import { compileUiExtensions, setBranding } from '@vendure/ui-devkit/compiler';
+// import { compileUiExtensions, setBranding } from '@vendure/ui-devkit/compiler';
 import 'dotenv/config';
 import path from 'path';
 

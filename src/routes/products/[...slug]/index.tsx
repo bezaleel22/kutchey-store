@@ -9,7 +9,7 @@ import Price from '~/components/products/Price';
 import StockLevelLabel from '~/components/stock-level-label/StockLevelLabel';
 import TopReviews from '~/components/top-reviews/TopReviews';
 import { APP_STATE } from '~/constants';
-import { Order, OrderLine, Product } from '~/generated/graphql';
+import { Asset, Order, OrderLine, Product } from '~/generated/graphql';
 import { addItemToOrderMutation } from '~/providers/shop/orders/order';
 import { getProductBySlug } from '~/providers/shop/products/products';
 import { Variant } from '~/types';
@@ -23,7 +23,7 @@ export const useProductLoader = routeLoader$(async ({ params }) => {
 			id: 'placeholder_2',
 			name: 'placeholder',
 			preview: '/asset_placeholder.webp',
-		});
+		} as Asset);
 	}
 	return product;
 });
