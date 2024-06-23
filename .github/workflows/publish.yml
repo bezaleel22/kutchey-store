@@ -2,10 +2,10 @@ name: Docker CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build-and-push:
@@ -13,8 +13,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-      # This is used to complete the identity challenge
-      # with sigstore/fulcio when running outside of PRs.
       id-token: write
 
     steps:
