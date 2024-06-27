@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "incremental": true,
     "isolatedModules": true,
-    "outDir": "tmp",
+    "outDir": "server",
     "noEmit": true,
     "paths": {
       "~/*": ["./src/*"]

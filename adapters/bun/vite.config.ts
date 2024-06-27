@@ -11,7 +11,7 @@ export default extendConfig(baseConfig, () => {
     build: {
       ssr: true,
       rollupOptions: {
-        input: ["src/app.ts", "@qwik-city-plan"],
+        input: ["src/entry.bun.ts", "@qwik-city-plan"],
       },
       minify: false,
     },

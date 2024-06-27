@@ -25,11 +25,8 @@
     "fmt.check": "prettier --check .",
     "lint": "eslint \"src/**/*.ts*\"",
     "preview": "qwik build preview && vite preview --open",
-    "serve": "bun server/app.js",
+    "serve": "bun server/entry.bun",
     "start": "vite --mode ssr",
-    "start:client": "bun ./server/app",
-    "start:server": "bun ./server/app --server",
-    "start:worker": "bun ./server/app --worker",
     "qwik": "qwik"
   },
   "devDependencies": {
