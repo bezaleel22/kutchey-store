@@ -8,3 +8,4 @@ COPY --chown=bun:bun dist ./dist
 COPY --chown=bun:bun server ./server
 
 EXPOSE 3000/tcp
+ENTRYPOINT [ "bun","run","serve" ]
