@@ -9,7 +9,6 @@ import {
 import { useLocation } from '@builder.io/qwik-city';
 import { type Stripe, type StripeElements, loadStripe } from '@stripe/stripe-js';
 import { APP_STATE } from '~/constants';
-import { ENV_VARIABLES } from '~/env';
 import { createStripePaymentIntentMutation } from '~/providers/shop/checkout/checkout';
 import CreditCardIcon from '../icons/CreditCardIcon';
 import XCircleIcon from '../icons/XCircleIcon';
@@ -21,7 +20,7 @@ function getStripe(publishableKey: string) {
 	}
 	return _stripe;
 }
-const stripePromise = getStripe(ENV_VARIABLES.VITE_STRIPE_PUBLISHABLE_KEY);
+const stripePromise = getStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
 
 export default component$(() => {
 	const appState = useContext(APP_STATE);

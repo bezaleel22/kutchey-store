@@ -1,13 +1,18 @@
-// import z from 'zod';
+/// <reference types="vite/client" />
 
-// const envVariables = z.object({
-// 	VITE_VENDURE_PUBLIC_URL: z.string(),
-// 	VITE_VENDURE_LOCAL_URL: z.string(),
-// 	VITE_SHOW_PAYMENT_STEP: z.string(),
-// 	VITE_SHOW_REVIEWS: z.string(),
-// 	VITE_SECURE_COOKIE: z.string(),
-// 	VITE_STRIPE_PUBLISHABLE_KEY: z.string(),
-// 	VITE_QWIK_INSIGHTS_KEY: z.string(),
-// });
+interface ImportMetaEnv {
+  readonly VITE_VENDURE_PUBLIC_URL: string;
+  readonly VITE_VENDURE_LOCAL_URL: string;
+  readonly VITE_SHOW_PAYMENT_STEP: string;
+  readonly VITE_SHOW_REVIEWS: string;
+  readonly VITE_SECURE_COOKIE: string;
+  readonly VITE_STRIPE_PUBLISHABLE_KEY: string;
+  readonly VITE_APP_TITLE: string;
+  readonly VITE_QWIK_INSIGHTS_KEY: string;
+  readonly VITE_CHANNEL_TOKEN: string;
+}
 
-export const ENV_VARIABLES = import.meta.env;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+}

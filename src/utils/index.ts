@@ -4,7 +4,6 @@ import {
 	DEFAULT_METADATA_TITLE,
 	DEFAULT_METADATA_URL,
 } from '~/constants';
-import { ENV_VARIABLES } from '~/env';
 import type { SearchResponse } from '~/generated/graphql';
 import type { ActiveCustomer, FacetWithValues, ShippingAddress } from '~/types';
 
@@ -106,8 +105,8 @@ export const cleanUpParams = (params: Record<string, string>) => {
 	return params;
 };
 
-export const isEnvVariableEnabled = (envVariable: keyof typeof ENV_VARIABLES) =>
-	ENV_VARIABLES[envVariable] === 'true';
+export const isEnvVariableEnabled = (envVariable: string) =>
+  import.meta.env[envVariable] === "true";
 
 export const isShippingAddressValid = (orderAddress: ShippingAddress): boolean =>
 	!!(
