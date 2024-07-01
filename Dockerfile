@@ -6,6 +6,7 @@ WORKDIR /usr/src/app
 # install dependencies into temp directory
 # this will cache them and speed up future builds
 FROM base AS install
+# RUN apk add --no-cache python make g++ libc6-compat
 RUN mkdir -p /temp/dev
 COPY package.json bun.lockb /temp/dev/
 RUN cd /temp/dev && bun install --frozen-lockfile
@@ -18,7 +19,8 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 # copy node_modules from temp directory
 # then copy all (non-ignored) project files into the image
 FROM base AS prerelease
-RUN apk add --update nodejs npm
+RUN apk add --update --no-cache nodejs-current python make g++ libc6-compat
+RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
