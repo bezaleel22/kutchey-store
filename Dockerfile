@@ -23,7 +23,9 @@ COPY . .
 
 # [optional] tests & build
 ENV NODE_ENV=production
-RUN bun run build
+RUN bun --bun run i18n-translate
+RUN bun --bun run vite build
+RUN bun --bun run vite build -c adapters/bun/vite.config.ts
 
 # copy production dependencies and source code into final image
 FROM base AS release
