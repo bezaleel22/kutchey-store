@@ -1,6 +1,6 @@
 # use the official Bun image
 # see all versions at https://hub.docker.com/r/oven/bun/tags
-FROM oven/bun:1-alpine AS base
+FROM oven/bun:1-slim AS base
 WORKDIR /usr/src/app
 
 # install dependencies into temp directory
@@ -18,8 +18,8 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 # copy node_modules from temp directory
 # then copy all (non-ignored) project files into the image
 FROM base AS prerelease
-RUN apk add --update --no-cache nodejs-current make g++ py3-pip
-# RUN ln -s /lib/libc.musl-x86_64.so.1 /lib/ld-linux-x86-64.so.2
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt-get install -y nodejs
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
