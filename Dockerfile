@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 # install dependencies into temp directory
 # this will cache them and speed up future builds
 FROM base AS install
-RUN apk add --no-cache python make g++ py3-pip
+RUN apk add --no-cache make g++ py3-pip
 RUN mkdir -p /temp/dev
 COPY package.json bun.lockb /temp/dev/
 RUN cd /temp/dev && bun install --frozen-lockfile
