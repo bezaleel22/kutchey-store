@@ -18,7 +18,7 @@ RUN cd /temp/prod && bun install --frozen-lockfile --production
 # copy node_modules from temp directory
 # then copy all (non-ignored) project files into the image
 FROM base AS prerelease
-RUN apk add --update nodejs-current
+RUN apk add --update nodejs npm
 COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
