@@ -59,6 +59,7 @@ const execute = async <R, V = Record<string, any>>(
   // const response: ResponseProps<R> = await executeRequest(requestOptions, options.apiUrl!);
 
   if (isBrowser && response.token) {
+    console.log("Setting cookie");
     setCookie(AUTH_TOKEN, response.token, 365);
     // setCookie(ADMIN_AUTH_TOKEN, response.token, 365);
   }
@@ -83,11 +84,6 @@ const executeRequest = async (options: Options, apiUrl: string) => {
   let httpResponse: Response = new Response();
   try {
     httpResponse = await fetch(apiUrl, options);
-    if (isBrowser) {
-      console.log(`Fetch from ${apiUrl} returned ${httpResponse.status}`);
-      console.log(httpResponse.headers);
-      console.log(httpResponse.body);
-    }
   } catch (error) {
     console.error(`Could not fetch from ${apiUrl}. Reason: ${error}`);
   }

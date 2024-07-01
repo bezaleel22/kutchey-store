@@ -7,7 +7,9 @@ export const getCollections = async () => {
 };
 
 export const getCollectionBySlug = async (slug: string) => {
-	return await shopSdk.collection({ slug }).then((res) => res.collection as Collection);
+	return await shopSdk.collection({ slug }).then((res) => {
+		return res.collection as Collection;
+	});
 };
 
 gql`
