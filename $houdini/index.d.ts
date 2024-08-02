@@ -16,6 +16,8 @@ export * from "./artifacts/DetailedProduct";
 export * from "./artifacts/EligiblePaymentMethods";
 export * from "./artifacts/EligibleShippingMethods";
 export * from "./artifacts/ErrorResult";
+export * from "./artifacts/GetOrderPaymentMethods";
+export * from "./artifacts/GetOrderShippingMethods";
 export * from "./artifacts/ListedProduct";
 export * from "./artifacts/OrderDetail";
 export * from "./artifacts/Product";

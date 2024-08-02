@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { graphql } from "$houdini";
 
 graphql`

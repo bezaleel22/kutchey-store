@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { graphql } from "$houdini";
 
 graphql`
@@ -47,6 +48,29 @@ graphql`
 		}
 	}
 `;
+
+graphql`
+	query GetOrderShippingMethods {
+		eligibleShippingMethods {
+			id
+			code
+			name
+			price
+			description
+		}
+	}
+`;
+
+graphql`
+	query GetOrderPaymentMethods {
+		eligiblePaymentMethods {
+			id
+			name
+			code
+			isEligible
+		}
+	}
+`
 
 graphql`
 	fragment OrderDetail on Order {

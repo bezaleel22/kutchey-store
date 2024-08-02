@@ -17,6 +17,8 @@
  export { default as EligiblePaymentMethods} from './EligiblePaymentMethods'
  export { default as EligibleShippingMethods} from './EligibleShippingMethods'
  export { default as ErrorResult} from './ErrorResult'
+ export { default as GetOrderPaymentMethods} from './GetOrderPaymentMethods'
+ export { default as GetOrderShippingMethods} from './GetOrderShippingMethods'
  export { default as ListedProduct} from './ListedProduct'
  export { default as OrderDetail} from './OrderDetail'
  export { default as Product} from './Product'

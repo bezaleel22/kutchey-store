@@ -5,6 +5,7 @@ export const load = async function ({ params, url }: Parameters<PageServerLoad>[
 	const code = params.code
 	const status = url.searchParams.get('redirect_status')
 	return {
-		code
+		code,
+		status
 	}
 }

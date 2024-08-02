@@ -1,31 +1,47 @@
-import { AddItemToOrderStore, OrderDetailStore } from "$houdini";
-import { error, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
-import { get } from "svelte/store";
+import { ActiveCustomerAddressesStore, GetOrderPaymentMethodsStore, type ActiveCustomerAddresses$result } from "$houdini";
+import { error, json, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
 
-export const GET = (async (event: RequestEvent) => {
-	try {
-		const id = event.url.searchParams.get("id") as string
-		const quantity = Number(event.url.searchParams.get("quantity"))
+export const POST = (async (event: RequestEvent) => {
+	const { id } = await event.request.json()
+	if (!id) { throw error(400, 'bad format') }
 
-		const store = new AddItemToOrderStore()
-		const order = await store.mutate({ productVariantId: id, quantity }, { event })
-		const addItemToOrder = order.data?.addItemToOrder
-		if (addItemToOrder && "errorCode" in addItemToOrder) {
-			throw error(500, { message: addItemToOrder.message, code: addItemToOrder.errorCode })
-		}
+	const addresStore = new ActiveCustomerAddressesStore()
+	const paymentStore = new GetOrderPaymentMethodsStore()
+	const promises = Promise.all([
+		addresStore.fetch({ event }),
+		paymentStore.fetch({ event })
+	])
 
-		if (!addItemToOrder) {
-			throw error(500, { message: 'Failed to add item to order', code: 'INTERNAL_SERVER_ERROR' });
-		}
-
-		const detailStore = new OrderDetailStore().get(addItemToOrder)
-		const activeOrder = get(detailStore)
-
-
-		return new Response(JSON.stringify(activeOrder), { status: 200 });
-	} catch (err: any) {
-		return new Response(JSON.stringify({ message: err.message, code: err.code }), {
-			status: 500,
-		});
+	const [addresses, paymentOptions] = await promises
+	if (!addresses && !paymentOptions) {
+		throw error(500, { message: `Failed to adresses and paymetOptions`, code: 'INTERNAL_SERVER_ERROR' });
 	}
+
+	const contacts = getContacts(addresses.data)
+	return json({ contacts, paymentOptions })
+
 }) satisfies RequestHandler;
+
+
+function getContacts(result: ActiveCustomerAddresses$result | null) {
+	const addresses = result?.activeCustomer?.addresses
+	const contacts = []
+	if (addresses) {
+		for (const address of addresses) {
+			contacts.push({
+				name: address.fullName,
+				address: {
+					line1: address.streetLine1,
+					line2: address.streetLine2,
+					city: address.city,
+					state: address.province,
+					postal_code: address.postalCode,
+					country: address.country.code.toUpperCase(),
+				}
+			})
+		}
+		return contacts
+	}
+
+
+}

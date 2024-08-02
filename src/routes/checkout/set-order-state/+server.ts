@@ -1,31 +1,17 @@
-import { AddItemToOrderStore, OrderDetailStore } from "$houdini";
+import { TransitionOrderToStateStore } from "$houdini";
 import { error, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
-import { get } from "svelte/store";
 
-export const GET = (async (event: RequestEvent) => {
-	try {
-		const id = event.url.searchParams.get("id") as string
-		const quantity = Number(event.url.searchParams.get("quantity"))
+export const POST = (async (event: RequestEvent) => {
+	const { state } = await event.request.json()
+	
+	const store = new TransitionOrderToStateStore()
+	const order = await store.mutate(state, { event })
+	const transitionOrderToState = order.data?.transitionOrderToState
 
-		const store = new AddItemToOrderStore()
-		const order = await store.mutate({ productVariantId: id, quantity }, { event })
-		const addItemToOrder = order.data?.addItemToOrder
-		if (addItemToOrder && "errorCode" in addItemToOrder) {
-			throw error(500, { message: addItemToOrder.message, code: addItemToOrder.errorCode })
-		}
-
-		if (!addItemToOrder) {
-			throw error(500, { message: 'Failed to add item to order', code: 'INTERNAL_SERVER_ERROR' });
-		}
-
-		const detailStore = new OrderDetailStore().get(addItemToOrder)
-		const activeOrder = get(detailStore)
-
-
-		return new Response(JSON.stringify(activeOrder), { status: 200 });
-	} catch (err: any) {
-		return new Response(JSON.stringify({ message: err.message, code: err.code }), {
-			status: 500,
-		});
+	if (!transitionOrderToState) {
+		throw error(500, { message: `Failed to transition order to ${state} state`, code: 'INTERNAL_SERVER_ERROR' });
 	}
+
+	return new Response(JSON.stringify(transitionOrderToState), { status: 200 });
+
 }) satisfies RequestHandler;

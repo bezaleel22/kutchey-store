@@ -1,13 +1,13 @@
-import { Address$input, Address$data } from "../../../artifacts/Address";
-import { AddressStore } from "../stores/Address";
-import { ErrorResult$input, ErrorResult$data } from "../../../artifacts/ErrorResult";
-import { ErrorResultStore } from "../stores/ErrorResult";
+import { OrderDetail$input, OrderDetail$data } from "../../../artifacts/OrderDetail";
+import { OrderDetailStore } from "../stores/OrderDetail";
 import { ListedProduct$input, ListedProduct$data } from "../../../artifacts/ListedProduct";
 import { ListedProductStore } from "../stores/ListedProduct";
 import { DetailedProduct$input, DetailedProduct$data } from "../../../artifacts/DetailedProduct";
 import { DetailedProductStore } from "../stores/DetailedProduct";
-import { OrderDetail$input, OrderDetail$data } from "../../../artifacts/OrderDetail";
-import { OrderDetailStore } from "../stores/OrderDetail";
+import { Address$input, Address$data } from "../../../artifacts/Address";
+import { AddressStore } from "../stores/Address";
+import { ErrorResult$input, ErrorResult$data } from "../../../artifacts/ErrorResult";
+import { ErrorResultStore } from "../stores/ErrorResult";
 import type { FragmentStoreInstance } from "./types";
 import type { Fragment, FragmentArtifact } from "$houdini/runtime/lib/types";
 import type { Readable } from "svelte/store";
@@ -17,24 +17,46 @@ import type { FragmentStorePaginated } from "./stores/pagination/fragment";
 export function fragment(
     initialValue: {
         " $fragments": {
-            OrderDetail: any;
+            ErrorResult: any;
         };
     } | {
         "__typename": "non-exhaustive; don't match this";
     },
-    document: OrderDetailStore
-): FragmentStoreInstance<OrderDetail$data, OrderDetail$input>;
+    document: ErrorResultStore
+): FragmentStoreInstance<ErrorResult$data, ErrorResult$input>;
 
 export function fragment(
     initialValue: {
         " $fragments": {
-            OrderDetail: any;
+            ErrorResult: any;
         };
     } | null | undefined | {
         "__typename": "non-exhaustive; don't match this";
     },
-    document: OrderDetailStore
-): FragmentStoreInstance<OrderDetail$data | null, OrderDetail$input>;
+    document: ErrorResultStore
+): FragmentStoreInstance<ErrorResult$data | null, ErrorResult$input>;
+
+export function fragment(
+    initialValue: {
+        " $fragments": {
+            Address: any;
+        };
+    } | {
+        "__typename": "non-exhaustive; don't match this";
+    },
+    document: AddressStore
+): FragmentStoreInstance<Address$data, Address$input>;
+
+export function fragment(
+    initialValue: {
+        " $fragments": {
+            Address: any;
+        };
+    } | null | undefined | {
+        "__typename": "non-exhaustive; don't match this";
+    },
+    document: AddressStore
+): FragmentStoreInstance<Address$data | null, Address$input>;
 
 export function fragment(
     initialValue: {
@@ -83,46 +105,24 @@ export function fragment(
 export function fragment(
     initialValue: {
         " $fragments": {
-            ErrorResult: any;
+            OrderDetail: any;
         };
     } | {
         "__typename": "non-exhaustive; don't match this";
     },
-    document: ErrorResultStore
-): FragmentStoreInstance<ErrorResult$data, ErrorResult$input>;
+    document: OrderDetailStore
+): FragmentStoreInstance<OrderDetail$data, OrderDetail$input>;
 
 export function fragment(
     initialValue: {
         " $fragments": {
-            ErrorResult: any;
+            OrderDetail: any;
         };
     } | null | undefined | {
         "__typename": "non-exhaustive; don't match this";
     },
-    document: ErrorResultStore
-): FragmentStoreInstance<ErrorResult$data | null, ErrorResult$input>;
-
-export function fragment(
-    initialValue: {
-        " $fragments": {
-            Address: any;
-        };
-    } | {
-        "__typename": "non-exhaustive; don't match this";
-    },
-    document: AddressStore
-): FragmentStoreInstance<Address$data, Address$input>;
-
-export function fragment(
-    initialValue: {
-        " $fragments": {
-            Address: any;
-        };
-    } | null | undefined | {
-        "__typename": "non-exhaustive; don't match this";
-    },
-    document: AddressStore
-): FragmentStoreInstance<Address$data | null, Address$input>;
+    document: OrderDetailStore
+): FragmentStoreInstance<OrderDetail$data | null, OrderDetail$input>;
 
 export declare function fragment<_Fragment extends Fragment<any>>(ref: _Fragment, fragment: FragmentStore<_Fragment["shape"], {}>): Readable<Exclude<_Fragment["shape"], undefined>> & {
     data: Readable<_Fragment>;

@@ -1,4 +1,3 @@
-import type { ListedProduct$data } from "$houdini";
 
 export type HasParent = { id: string; parentId: string | null };
 export type TreeNode<T extends HasParent> = T & {
@@ -8,6 +7,27 @@ export type RootNode<T extends HasParent> = {
     id?: string;
     children: Array<TreeNode<T>>;
 };
+
+export type ShippingMethodQuote = {
+    id: string;
+    price: number;
+    priceWithTax: number;
+    code: string;
+    name: string;
+    description: string;
+    metadata?: object
+    customFields: object;
+}
+
+export type PaymentMethodQuote = {
+    id: string;
+    code: string;
+    name: string;
+    description: string;
+    isEligible: boolean;
+    eligibilityMessage: string;
+    customFields: object;
+}
 
 export type Product = {
     id: string;
@@ -42,7 +62,7 @@ export type Collection = {
     breadcrumbs?: Breadcrumb[];
     parent?: { name: '__root_collection__' };
     featuredAsset?: { id: string; preview: string };
-    children?: any[];
+    children?: Collection[];
     productVariants?: {
         totalItems: number
     };
@@ -78,7 +98,7 @@ export type Variant = {
     currencyCode: CurrencyCode;
     sku: string;
     stockLevel: string;
-    featuredAsset?: any;
+    featuredAsset?: Asset;
 };
 
 // activeOrder
@@ -135,7 +155,7 @@ export type ActiveOrder = {
     taxSummary: TaxSummary[];
     shippingWithTax: number;
     totalWithTax: number;
-    customer?: any;
+    customer?: ActiveCustomer;
     shippingAddress: ShippingAddress;
     shippingLines: ShippingLine[];
     lines: Line[];

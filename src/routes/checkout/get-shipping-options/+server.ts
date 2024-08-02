@@ -1,31 +1,16 @@
-import { AddItemToOrderStore, OrderDetailStore } from "$houdini";
+import { GetOrderShippingMethodsStore } from "$houdini";
 import { error, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
-import { get } from "svelte/store";
 
 export const GET = (async (event: RequestEvent) => {
-	try {
-		const id = event.url.searchParams.get("id") as string
-		const quantity = Number(event.url.searchParams.get("quantity"))
 
-		const store = new AddItemToOrderStore()
-		const order = await store.mutate({ productVariantId: id, quantity }, { event })
-		const addItemToOrder = order.data?.addItemToOrder
-		if (addItemToOrder && "errorCode" in addItemToOrder) {
-			throw error(500, { message: addItemToOrder.message, code: addItemToOrder.errorCode })
-		}
+	const store = new GetOrderShippingMethodsStore()
+	const order = await store.fetch({ event })
+	const shippingMethods = order.data?.eligibleShippingMethods
 
-		if (!addItemToOrder) {
-			throw error(500, { message: 'Failed to add item to order', code: 'INTERNAL_SERVER_ERROR' });
-		}
-
-		const detailStore = new OrderDetailStore().get(addItemToOrder)
-		const activeOrder = get(detailStore)
-
-
-		return new Response(JSON.stringify(activeOrder), { status: 200 });
-	} catch (err: any) {
-		return new Response(JSON.stringify({ message: err.message, code: err.code }), {
-			status: 500,
-		});
+	if (!shippingMethods) {
+		throw error(500, { message: 'Failed to get shipping methods ', code: 'INTERNAL_SERVER_ERROR' });
 	}
+
+	return new Response(JSON.stringify(shippingMethods), { status: 200 });
+
 }) satisfies RequestHandler;
