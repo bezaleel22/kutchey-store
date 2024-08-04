@@ -14,6 +14,18 @@ graphql`
 `;
 
 graphql`
+	mutation SetOrderBillingAddress($input: CreateAddressInput!) {
+		setOrderBillingAddress(input: $input) {
+			...OrderDetail
+			... on ErrorResult {
+				errorCode
+				message
+			}
+		}
+	}
+`;
+
+graphql`
 	mutation SetCustomerForOrder($input: CreateCustomerInput!) {
 		setCustomerForOrder(input: $input) {
 			...OrderDetail
@@ -48,29 +60,6 @@ graphql`
 		}
 	}
 `;
-
-graphql`
-	query GetOrderShippingMethods {
-		eligibleShippingMethods {
-			id
-			code
-			name
-			price
-			description
-		}
-	}
-`;
-
-graphql`
-	query GetOrderPaymentMethods {
-		eligiblePaymentMethods {
-			id
-			name
-			code
-			isEligible
-		}
-	}
-`
 
 graphql`
 	fragment OrderDetail on Order {

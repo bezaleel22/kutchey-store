@@ -10,6 +10,7 @@ export type EligibleShippingMethods$result = {
     readonly eligibleShippingMethods: ({
         readonly id: string;
         readonly name: string;
+        readonly code: string;
         readonly description: string;
         /**
          * Any optional metadata returned by the ShippingCalculator in the ShippingCalculationResult
@@ -25,11 +26,12 @@ export type EligibleShippingMethods$input = null;
 export type EligibleShippingMethods$artifact = {
     "name": "EligibleShippingMethods";
     "kind": "HoudiniQuery";
-    "hash": "68ef0393cc19421b81690a5eeec2269303143d12308adf04c79cb9c6990d5867";
+    "hash": "2ad40ea479beabc62280e4528ef9c58a38439767d56c70e67d4a168ad57ed70e";
     "raw": `query EligibleShippingMethods {
   eligibleShippingMethods {
     id
     name
+    code
     description
     metadata
     price
@@ -53,6 +55,11 @@ export type EligibleShippingMethods$artifact = {
                         "name": {
                             "type": "String";
                             "keyRaw": "name";
+                            "visible": true;
+                        };
+                        "code": {
+                            "type": "String";
+                            "keyRaw": "code";
                             "visible": true;
                         };
                         "description": {

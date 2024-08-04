@@ -18,9 +18,10 @@
 
   $: ({ collections, activeOrder, customer } = data);
   $: if (browser) {
-    $user = customer ?? $user;;
-    $order = activeOrder;
+    $state.customer = customer ?? $user;;
+    $state.activeOrder = activeOrder;
     $state.collections = collections;
+    // $currencyCode = $LayoutQuery.data.activeChannel.currencyCode
     // console.log({ activeOrder });
   }
 </script>
@@ -30,7 +31,6 @@
 </svelte:head>
 
 <div id="page" class="site">
-  <div class="overlay" data-overlay></div>
   <Header />
 
   <main class="main">

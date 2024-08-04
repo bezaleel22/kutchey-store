@@ -1,30 +1,54 @@
-import { dev } from "$app/environment"
 import type { SearchProduct$result } from "$houdini";
-import type { HasParent, Product, RootNode, TreeNode } from "./types"
+import type { HasParent, RootNode, ShippingMethodQuote, TreeNode } from "$lib/types"
 
 import {
+	PUBLIC_LOCAL_PICKUP_CODE,
 	SITE_DESCRIPTION,
 	SITE_IMAGE,
 	SITE_TITLE,
 	SITE_URL,
 } from '$lib/constants';
 import type { ActiveCustomer, FacetWithValues, ShippingAddress } from '$lib/types';
+import { get } from "svelte/store";
+import { currencyCode, userLocale } from "$lib/store";
 
-export const formatCurrency = function (value: number, currencyCode: string, locale?: string) {
-	// See Vendure docs for more info:
-	// https://docs.vendure.io/guides/core-concepts/money/#displaying-monetary-values
+export const formatCurrency = (value: number) => {
 	const majorUnits = value / 100
-	try {
-		// If no `locale` is provided, the browser's default locale will be used.
-		return new Intl.NumberFormat(locale, {
-			style: 'currency',
-			currency: currencyCode,
-			currencyDisplay: 'symbol'
-		}).format(majorUnits)
-	} catch (e: any) {
-		// A fallback in case the NumberFormat fails for any reason
-		return majorUnits.toFixed(2)
+
+	const locale = get(userLocale) ?? 'en-US'
+	const currency = get(currencyCode) ?? 'USD'
+
+	return new Intl.NumberFormat(locale, {
+		style: 'currency',
+		currency: currency,
+	}).format(majorUnits)
+}
+
+export const selectCheapestShippingOption = async (shippingOptions: ShippingMethodQuote[]) => {
+	// set cheapest shipping option as default, but make sure it is not local pickup
+	if (shippingOptions) {
+		let index = 0
+		if (PUBLIC_LOCAL_PICKUP_CODE) {
+			const pickupIndex = shippingOptions.findIndex(v => v.code === PUBLIC_LOCAL_PICKUP_CODE)
+			if (pickupIndex === index) index += 1
+		}
+		if (index === shippingOptions.length) {
+			return { error: "There are no shipping options available" }
+		} else {
+			return { id: shippingOptions[index] }
+		}
 	}
+}
+
+export const selectPickupOption = async (shippingOptions: ShippingMethodQuote[]) => {
+    if (shippingOptions) {
+        const pickupIndex = shippingOptions.findIndex(v => v.code === PUBLIC_LOCAL_PICKUP_CODE)
+        if (pickupIndex === -1) {
+			return { error: "There are no shipping options available" }
+        } else {
+           return { id: shippingOptions[pickupIndex] }
+        }
+    }
 }
 
 /**
@@ -37,11 +61,12 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> | null
 
 	// First map the nodes of the array to an object -> create a hash table.
 	for (const node of nodes) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		mappedArr[node.id] = { ...(node as any), children: [] };
 	}
 
 	for (const id of nodes.map((n) => n.id)) {
-		if (mappedArr.hasOwnProperty(id)) {
+		if (Object.prototype.hasOwnProperty.call(mappedArr, id)) {
 			const mappedElem = mappedArr[id];
 			const parentId = mappedElem.parentId;
 			if (!parentId) return null;
@@ -54,6 +79,7 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> | null
 				if (mappedArr[parentId]) {
 					mappedArr[parentId].children.push(mappedElem);
 				} else {
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					mappedArr[parentId] = { children: [mappedElem] } as any;
 				}
 			} else {

@@ -1,16 +1,22 @@
-import { SetOrderShippingAddressStore } from "$houdini";
-import { error, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
+import { OrderDetailStore, SetOrderShippingAddressStore, type CreateAddressInput } from "$houdini";
+import { error, json, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
+import { get } from "svelte/store";
 
 export const POST = (async (event: RequestEvent) => {
-	const address = await event.request.json()
+	const address = await event.request.json() as CreateAddressInput
 	const store = new SetOrderShippingAddressStore()
 	const order = await store.mutate({ input: address }, { event })
-	const shippingMethods = order.data?.setOrderShippingAddress
+
+	if (!order.data?.setOrderShippingAddress) {
+		throw error(500, { message: 'Failed to create customer ', code: 'INTERNAL_SERVER_ERROR' });
+	}
+	const detailStore = new OrderDetailStore().get(order.data.setOrderShippingAddress)
+	const shippingMethods = get(detailStore)
 
 	if (!shippingMethods) {
-		throw error(500, { message: 'Failed to get shipping methods ', code: 'INTERNAL_SERVER_ERROR' });
+		throw error(500, { message: 'Failed to create customer ', code: 'INTERNAL_SERVER_ERROR' });
 	}
 
-	return new Response(JSON.stringify(shippingMethods), { status: 200 });
+	return json(shippingMethods)
 
 }) satisfies RequestHandler;

@@ -1,3 +1,4 @@
+import type { OrderDetail$data } from "$houdini";
 
 export type HasParent = { id: string; parentId: string | null };
 export type TreeNode<T extends HasParent> = T & {
@@ -8,25 +9,176 @@ export type RootNode<T extends HasParent> = {
     children: Array<TreeNode<T>>;
 };
 
-export type ShippingMethodQuote = {
+
+export type PaymentAuth = {
+    status: boolean;
+    message: string;
+    data: {
+        authorization_url: string;
+        access_code: string;
+        reference: string;
+    };
+}
+
+// types.ts
+
+// Address as a JSON string
+export interface Address {
+    street_address: string[];
+    state: string;
+    city: string;
+    zip_code: string;
+    country: string;
+}
+
+export interface DeliveryRequest {
+    pickup_address: string; // JSON string
+    dropoff_address: string; // JSON string
+    package_details: string;
+    recipient_name: string;
+    recipient_phone: string;
+}
+
+export interface DeliveryResponse {
+    delivery_id: string;
+    status: string;
+    estimated_delivery_time: string;
+    tracking_url: string;
+}
+
+export interface ApiError {
+    code: string;
+    message: string;
+}
+
+export type Transaction = {
+    id?: string;
+    reference: string;
+    trans?: string;
+    status: string;
+    message: string;
+    transaction: string;
+    trxref?: string;
+};
+
+export type TransactionResponse = {
+    id: string;             // This is the transaction id
+    accessCode: string;     // Unique payment code used for creating the payment link and loading the Popup
+    customer: object;       // Details of the customer making the payment
+};
+
+export interface PaystackOptions {
+    key: string; // Your Paystack public key
+    email: string;
+    amount: number; // Amount in kobo
+    currency?: string; // Optional, defaults to NGN
+    reference?: string; // Optional, reference for the transaction
+    container?: string; // Optional, for embedded payments
+    onSuccess?: (response: Transaction) => void; // Callback for successful payments
+    onCancel?: () => void; // Callback if payment is canceled
+    onError?: (error: any) => void; // Callback for errors
+    onLoad?: (response: TransactionResponse) => void; // Callback for preloader load
+    [key: string]: any; // Allows additional properties
+}
+
+
+export type VerifyPayment = {
+    status: boolean;
+    message: string;
+    data: {
+        id: number;
+        domain: string;
+        status: string;
+        reference: string;
+        amount: number;
+        message: string | null;
+        gateway_response: string;
+        paid_at: string;
+        created_at: string;
+        channel: string;
+        currency: string;
+        ip_address: string;
+        metadata: string;
+        log: {
+            start_time: number;
+            time_spent: number;
+            attempts: number;
+            errors: number;
+            success: boolean;
+            mobile: boolean;
+            input: any[];
+            history: {
+                type: string;
+                message: string;
+                time: number;
+            }[];
+        };
+        fees: number;
+        fees_split: any;
+        authorization: {
+            authorization_code: string;
+            bin: string;
+            last4: string;
+            exp_month: string;
+            exp_year: string;
+            channel: string;
+            card_type: string;
+            bank: string;
+            country_code: string;
+            brand: string;
+            reusable: boolean;
+            signature: string;
+            account_name: string | null;
+        };
+        customer: {
+            id: number;
+            first_name: string | null;
+            last_name: string | null;
+            email: string;
+            customer_code: string;
+            phone: string | null;
+            metadata: string | null;
+            risk_action: string;
+            international_format_phone: string | null;
+        };
+        plan: any;
+        split: any;
+        order_id: string | null;
+        paidAt: string;
+        createdAt: string;
+        requested_amount: number;
+        pos_transaction_data: any;
+        source: any;
+        fees_breakdown: any;
+        transaction_date: string;
+        plan_object: any;
+        subaccount: any;
+    };
+}
+
+
+export type Contact = {
+    addressBook: ShippingAddress[];
+    paymentOptions: PaymentMethod;
+}
+
+export type ShippingMethod = {
     id: string;
-    price: number;
-    priceWithTax: number;
+    price: string;
+    priceWithTax: string;
     code: string;
     name: string;
     description: string;
     metadata?: object
-    customFields: object;
 }
 
-export type PaymentMethodQuote = {
+export type PaymentMethod = {
     id: string;
     code: string;
     name: string;
     description: string;
     isEligible: boolean;
     eligibilityMessage: string;
-    customFields: object;
 }
 
 export type Product = {
@@ -235,11 +387,15 @@ export type Review = {
 export type ActiveCustomer = {
     title?: string;
     firstName: string;
-    id: string;
+    id?: string;
     lastName: string;
-    emailAddress?: string;
+    emailAddress: string;
     phoneNumber?: string;
+    addresses?: ShippingAddress[]
+    orders?: OrderDetail$data
+    customFields?: object
 };
+
 
 export type Login = ActiveCustomer & {
     __typename: 'CurrentUser' | string;

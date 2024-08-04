@@ -12,19 +12,6 @@ graphql`
 `;
 
 graphql`
-	query EligibleShippingMethods {
-		eligibleShippingMethods {
-			id
-			name
-			description
-			metadata
-			price
-			priceWithTax
-		}
-	}
-`;
-
-graphql`
 	mutation AddPaymentToOrder($input: PaymentInput!) {
 		addPaymentToOrder(input: $input) {
 			...OrderDetail
@@ -57,6 +44,20 @@ graphql`
 			description
 			eligibilityMessage
 			isEligible
+		}
+	}
+`;
+
+graphql`
+	query EligibleShippingMethods {
+		eligibleShippingMethods {
+			id
+			name
+			code
+			description
+			metadata
+			price
+			priceWithTax
 		}
 	}
 `;

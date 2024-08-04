@@ -1,12 +1,13 @@
 export default {
     "name": "EligibleShippingMethods",
     "kind": "HoudiniQuery",
-    "hash": "68ef0393cc19421b81690a5eeec2269303143d12308adf04c79cb9c6990d5867",
+    "hash": "2ad40ea479beabc62280e4528ef9c58a38439767d56c70e67d4a168ad57ed70e",
 
     "raw": `query EligibleShippingMethods {
   eligibleShippingMethods {
     id
     name
+    code
     description
     metadata
     price
@@ -34,6 +35,12 @@ export default {
                         "name": {
                             "type": "String",
                             "keyRaw": "name",
+                            "visible": true
+                        },
+
+                        "code": {
+                            "type": "String",
+                            "keyRaw": "code",
                             "visible": true
                         },
 
@@ -77,4 +84,4 @@ export default {
     "partial": false
 };
 
-"HoudiniHash=34f7f39a0ef459750d879fd18666a90a879eb0e31be89867d3e6eaae08e1c685";
+"HoudiniHash=c940246890df48bc4f3901960d48a4fb24e6fd1b87334ccb1f9c9afb6974c754";

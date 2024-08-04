@@ -1,7 +1,7 @@
 // See https://kit.svelte.dev/docs/types#app
 
-import type { OrderDetail } from "$houdini"
-import type { ActiveCustomer, ActiveOrder } from "$lib/types"
+import type { ActiveCustomer } from "$lib/types"
+import type { TypedRequestInit, TypedResponse } from "$lib/fetch"
 
 // for information about these interfaces
 declare global {
@@ -15,7 +15,6 @@ declare global {
 		// interface Platform {}
 		interface Session {
 			token: string // vendure auth token
-			// cookies: Cookies
 		}
 
 		type EventElements = Event & {
@@ -36,6 +35,11 @@ declare global {
 			'on:clickOutside'?: CompositionEventHandler<T>
 		}
 	}
+
+	declare function fetch<ResponseType = unknown>(
+		input: RequestInfo | URL, init?: TypedRequestInit
+	): Promise<TypedResponse<ResponseType>>;
 }
 
+declare module '@paystack/inline-js'
 export { };

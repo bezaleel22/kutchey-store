@@ -1,9 +1,9 @@
-import { OrderDetail$input, OrderDetail$data } from "../../../artifacts/OrderDetail";
-import { OrderDetailStore } from "../stores/OrderDetail";
 import { ListedProduct$input, ListedProduct$data } from "../../../artifacts/ListedProduct";
 import { ListedProductStore } from "../stores/ListedProduct";
 import { DetailedProduct$input, DetailedProduct$data } from "../../../artifacts/DetailedProduct";
 import { DetailedProductStore } from "../stores/DetailedProduct";
+import { OrderDetail$input, OrderDetail$data } from "../../../artifacts/OrderDetail";
+import { OrderDetailStore } from "../stores/OrderDetail";
 import { Address$input, Address$data } from "../../../artifacts/Address";
 import { AddressStore } from "../stores/Address";
 import { ErrorResult$input, ErrorResult$data } from "../../../artifacts/ErrorResult";
@@ -61,6 +61,28 @@ export function fragment(
 export function fragment(
     initialValue: {
         " $fragments": {
+            OrderDetail: any;
+        };
+    } | {
+        "__typename": "non-exhaustive; don't match this";
+    },
+    document: OrderDetailStore
+): FragmentStoreInstance<OrderDetail$data, OrderDetail$input>;
+
+export function fragment(
+    initialValue: {
+        " $fragments": {
+            OrderDetail: any;
+        };
+    } | null | undefined | {
+        "__typename": "non-exhaustive; don't match this";
+    },
+    document: OrderDetailStore
+): FragmentStoreInstance<OrderDetail$data | null, OrderDetail$input>;
+
+export function fragment(
+    initialValue: {
+        " $fragments": {
             DetailedProduct: any;
         };
     } | {
@@ -101,28 +123,6 @@ export function fragment(
     },
     document: ListedProductStore
 ): FragmentStoreInstance<ListedProduct$data | null, ListedProduct$input>;
-
-export function fragment(
-    initialValue: {
-        " $fragments": {
-            OrderDetail: any;
-        };
-    } | {
-        "__typename": "non-exhaustive; don't match this";
-    },
-    document: OrderDetailStore
-): FragmentStoreInstance<OrderDetail$data, OrderDetail$input>;
-
-export function fragment(
-    initialValue: {
-        " $fragments": {
-            OrderDetail: any;
-        };
-    } | null | undefined | {
-        "__typename": "non-exhaustive; don't match this";
-    },
-    document: OrderDetailStore
-): FragmentStoreInstance<OrderDetail$data | null, OrderDetail$input>;
 
 export declare function fragment<_Fragment extends Fragment<any>>(ref: _Fragment, fragment: FragmentStore<_Fragment["shape"], {}>): Readable<Exclude<_Fragment["shape"], undefined>> & {
     data: Readable<_Fragment>;

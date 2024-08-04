@@ -1,20 +1,19 @@
 import { PromotionsStore } from "../plugins/houdini-svelte/stores/Promotions";
-import { ArderByCodeStore } from "../plugins/houdini-svelte/stores/ArderByCode";
-import { ActiveOrderStore } from "../plugins/houdini-svelte/stores/ActiveOrder";
-import { RemoveOrderLineStore } from "../plugins/houdini-svelte/stores/RemoveOrderLine";
-import { UpdateOrderLineStore } from "../plugins/houdini-svelte/stores/UpdateOrderLine";
-import { OrderDetailStore } from "../plugins/houdini-svelte/stores/OrderDetail";
-import { GetOrderPaymentMethodsStore } from "../plugins/houdini-svelte/stores/GetOrderPaymentMethods";
-import { GetOrderShippingMethodsStore } from "../plugins/houdini-svelte/stores/GetOrderShippingMethods";
-import { SetOrderShippingMethodStore } from "../plugins/houdini-svelte/stores/SetOrderShippingMethod";
-import { AddItemToOrderStore } from "../plugins/houdini-svelte/stores/AddItemToOrder";
-import { SetCustomerForOrderStore } from "../plugins/houdini-svelte/stores/SetCustomerForOrder";
-import { SetOrderShippingAddressStore } from "../plugins/houdini-svelte/stores/SetOrderShippingAddress";
 import { SearchProductStore } from "../plugins/houdini-svelte/stores/SearchProduct";
 import { ListedProductStore } from "../plugins/houdini-svelte/stores/ListedProduct";
 import { ProductsStore } from "../plugins/houdini-svelte/stores/Products";
 import { ProductStore } from "../plugins/houdini-svelte/stores/Product";
 import { DetailedProductStore } from "../plugins/houdini-svelte/stores/DetailedProduct";
+import { ArderByCodeStore } from "../plugins/houdini-svelte/stores/ArderByCode";
+import { ActiveOrderStore } from "../plugins/houdini-svelte/stores/ActiveOrder";
+import { RemoveOrderLineStore } from "../plugins/houdini-svelte/stores/RemoveOrderLine";
+import { UpdateOrderLineStore } from "../plugins/houdini-svelte/stores/UpdateOrderLine";
+import { OrderDetailStore } from "../plugins/houdini-svelte/stores/OrderDetail";
+import { SetOrderShippingMethodStore } from "../plugins/houdini-svelte/stores/SetOrderShippingMethod";
+import { AddItemToOrderStore } from "../plugins/houdini-svelte/stores/AddItemToOrder";
+import { SetCustomerForOrderStore } from "../plugins/houdini-svelte/stores/SetCustomerForOrder";
+import { SetOrderBillingAddressStore } from "../plugins/houdini-svelte/stores/SetOrderBillingAddress";
+import { SetOrderShippingAddressStore } from "../plugins/houdini-svelte/stores/SetOrderShippingAddress";
 import { CreateCustomerAddressMutationStore } from "../plugins/houdini-svelte/stores/CreateCustomerAddressMutation";
 import { AddressStore } from "../plugins/houdini-svelte/stores/Address";
 import { UpdateCustomerAddressMutationStore } from "../plugins/houdini-svelte/stores/UpdateCustomerAddressMutation";
@@ -25,13 +24,13 @@ import { ActiveCustomerOrdersStore } from "../plugins/houdini-svelte/stores/Acti
 import { CreateCustomerAddressStore } from "../plugins/houdini-svelte/stores/CreateCustomerAddress";
 import { ActiveCustomerStore } from "../plugins/houdini-svelte/stores/ActiveCustomer";
 import { ActiveCustomerAddressesStore } from "../plugins/houdini-svelte/stores/ActiveCustomerAddresses";
+import { CollectionStore } from "../plugins/houdini-svelte/stores/Collection";
+import { CollectionsStore } from "../plugins/houdini-svelte/stores/Collections";
+import { EligibleShippingMethodsStore } from "../plugins/houdini-svelte/stores/EligibleShippingMethods";
 import { EligiblePaymentMethodsStore } from "../plugins/houdini-svelte/stores/EligiblePaymentMethods";
 import { TransitionOrderToStateStore } from "../plugins/houdini-svelte/stores/TransitionOrderToState";
 import { AddPaymentToOrderStore } from "../plugins/houdini-svelte/stores/AddPaymentToOrder";
-import { EligibleShippingMethodsStore } from "../plugins/houdini-svelte/stores/EligibleShippingMethods";
 import { AvailableCountriesStore } from "../plugins/houdini-svelte/stores/AvailableCountries";
-import { CollectionStore } from "../plugins/houdini-svelte/stores/Collection";
-import { CollectionsStore } from "../plugins/houdini-svelte/stores/Collections";
 import { RequestPasswordResetStore } from "../plugins/houdini-svelte/stores/RequestPasswordReset";
 import { ResetPasswordStore } from "../plugins/houdini-svelte/stores/ResetPassword";
 import { UpdateCustomerEmailStore } from "../plugins/houdini-svelte/stores/UpdateCustomerEmail";
@@ -50,6 +49,26 @@ export * from "./lib";
 export function graphql(
     str: "\n    query Promotions {\n        promotions {\n            totalItems\n            items {\n                id\n                name\n                description\n                couponCode\n                startsAt\n                endsAt\n                enabled\n                usageLimit\n                perCustomerUsageLimit\n                conditions {\n                    code\n                    args{\n                        name\n                        value\n                    }\n                }\n                actions{\n                    code\n                    args {\n                        name\n                        value\n                    }\n                }\n            }\n        }\n    }\n"
 ): PromotionsStore;
+
+export function graphql(
+    str: "\n\tquery SearchProduct($input: SearchInput!) {\n\t\tsearch(input: $input) {\n\t\t\ttotalItems\n\t\t\titems {\n\t\t\t\t...ListedProduct\n\t\t\t}\n\t\t\tfacetValues {\n\t\t\t\tcount\n\t\t\t\tfacetValue {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tfacet {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tname\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
+): SearchProductStore;
+
+export function graphql(
+    str: "\n\tfragment ListedProduct on SearchResult {\n\t\tproductId\n\t\tproductName\n\t\tslug\n\t\tproductAsset {\n\t\t\tid\n\t\t\tpreview\n\t\t}\n\t\tcurrencyCode\n\t\tpriceWithTax {\n\t\t\t... on PriceRange {\n\t\t\t\tmin\n\t\t\t\tmax\n\t\t\t}\n\t\t\t... on SinglePrice {\n\t\t\t\tvalue\n\t\t\t}\n\t\t}\n\t}\n"
+): ListedProductStore;
+
+export function graphql(
+    str: "\n\tquery Products($slug: String, $skip: Int, $take: Int) {\n\t\tsearch(\n\t\t\tinput: {\n\t\t\tcollectionSlug: $slug,\n\t\t\tgroupByProduct: true,\n\t\t\tskip: $skip,\n\t\t\ttake: $take \n\t\t\t}\n\t\t) {\n\t\t\ttotalItems\n\t\t\titems {\n\t\t\t\tsku\n\t\t\t\tproductVariantId\n\t\t\t\tproductName\n\t\t\t\tslug\n\t\t\t\tdescription\n\t\t\t\tproductAsset {\n\t\t\t\t\tid\n\t\t\t\t\tpreview\n\t\t\t\t}\n\t\t\t\tpriceWithTax {\n\t\t\t\t\t... on SinglePrice {\n\t\t\t\t\t\tvalue\n\t\t\t\t\t}\n\t\t\t\t\t... on PriceRange {\n\t\t\t\t\t\tmin\n\t\t\t\t\t\tmax\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcurrencyCode\n\t\t\t\tcollectionIds\n\t\t\t}\n\t\t\tcollections{\n\t\t\t\tcollection{\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tslug\n\t\t\t\t\tparentId\n\t\t\t\t\tposition\n\t\t\t\t}\n\t\t\t}\n\t\t\tfacetValues{\n\t\t\t\tfacetValue{\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tcode\n\t\t\t\t\tfacet{\n\t\t\t\t\t\tid\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcode\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
+): ProductsStore;
+
+export function graphql(
+    str: "\n\tquery Product($slug: String, $id: ID) {\n\t\tproduct(slug: $slug, id: $id) {\n\t\t\t...DetailedProduct\n\t\t}\n\t}\n"
+): ProductStore;
+
+export function graphql(
+    str: "\n\tfragment DetailedProduct on Product {\n\t\tid\n\t\tname\n\t\tdescription\n\t\toptionGroups{\n\t\t\tid\n\t\t\tcode\n\t\t\tname\n\t\t\toptions{\n\t\t\t\tid\n\t\t\t\tcode\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t\tcollections {\n\t\t\tid\n\t\t\tslug\n\t\t\tname\n\t\t\tbreadcrumbs {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tslug\n\t\t\t}\n\t\t}\n\t\tfacetValues {\n\t\t\tfacet {\n\t\t\t\tid\n\t\t\t\tcode\n\t\t\t\tname\n\t\t\t}\n\t\t\tid\n\t\t\tcode\n\t\t\tname\n\t\t}\n\t\tfeaturedAsset {\n\t\t\tid\n\t\t\tpreview\n\t\t}\n\t\tassets {\n\t\t\tid\n\t\t\tpreview\n\t\t}\n\t\tvariants {\n\t\t\tid\n\t\t\tname\n\t\t\tsku\n\t\t\tstockLevel\n\t\t\tcurrencyCode\n\t\t\tprice\n\t\t\tpriceWithTax\n\t\t\toptions{\n\t\t\t\tid\n\t\t\t\tcode\n\t\t\t\tname\n\t\t\t}\n\t\t\tfacetValues {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tfacet {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t}\n\t\t\t}\n\t\t\tfeaturedAsset {\n\t\t\t\tid\n\t\t\t\tpreview\n\t\t\t}\n\t\t\tassets {\n\t\t\t\tid\n\t\t\t\tpreview\n\t\t\t}\n\t\t}\n\t}\n"
+): DetailedProductStore;
 
 export function graphql(
     str: "\n\tquery ArderByCode($code: String!) {\n\t\torderByCode(code: $code) {\n\t\t\t...OrderDetail\n\t\t}\n\t}\n"
@@ -72,14 +91,6 @@ export function graphql(
 ): OrderDetailStore;
 
 export function graphql(
-    str: "\n\tquery GetOrderPaymentMethods {\n\t\teligiblePaymentMethods {\n\t\t\tid\n\t\t\tname\n\t\t\tcode\n\t\t\tisEligible\n\t\t}\n\t}\n"
-): GetOrderPaymentMethodsStore;
-
-export function graphql(
-    str: "\n\tquery GetOrderShippingMethods {\n\t\teligibleShippingMethods {\n\t\t\tid\n\t\t\tcode\n\t\t\tname\n\t\t\tprice\n\t\t\tdescription\n\t\t}\n\t}\n"
-): GetOrderShippingMethodsStore;
-
-export function graphql(
     str: "\n\tmutation SetOrderShippingMethod($shippingMethodId: [ID!]!) {\n\t\tsetOrderShippingMethod(shippingMethodId: $shippingMethodId) {\n\t\t\t...OrderDetail\n\t\t\t... on ErrorResult {\n\t\t\t\terrorCode\n\t\t\t\tmessage\n\t\t\t}\n\t\t}\n\t}\n"
 ): SetOrderShippingMethodStore;
 
@@ -92,28 +103,12 @@ export function graphql(
 ): SetCustomerForOrderStore;
 
 export function graphql(
+    str: "\n\tmutation SetOrderBillingAddress($input: CreateAddressInput!) {\n\t\tsetOrderBillingAddress(input: $input) {\n\t\t\t...OrderDetail\n\t\t\t... on ErrorResult {\n\t\t\t\terrorCode\n\t\t\t\tmessage\n\t\t\t}\n\t\t}\n\t}\n"
+): SetOrderBillingAddressStore;
+
+export function graphql(
     str: "\n\tmutation SetOrderShippingAddress($input: CreateAddressInput!) {\n\t\tsetOrderShippingAddress(input: $input) {\n\t\t\t...OrderDetail\n\t\t\t... on ErrorResult {\n\t\t\t\terrorCode\n\t\t\t\tmessage\n\t\t\t}\n\t\t}\n\t}\n"
 ): SetOrderShippingAddressStore;
-
-export function graphql(
-    str: "\n\tquery SearchProduct($input: SearchInput!) {\n\t\tsearch(input: $input) {\n\t\t\ttotalItems\n\t\t\titems {\n\t\t\t\t...ListedProduct\n\t\t\t}\n\t\t\tfacetValues {\n\t\t\t\tcount\n\t\t\t\tfacetValue {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tfacet {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tname\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
-): SearchProductStore;
-
-export function graphql(
-    str: "\n\tfragment ListedProduct on SearchResult {\n\t\tproductId\n\t\tproductName\n\t\tslug\n\t\tproductAsset {\n\t\t\tid\n\t\t\tpreview\n\t\t}\n\t\tcurrencyCode\n\t\tpriceWithTax {\n\t\t\t... on PriceRange {\n\t\t\t\tmin\n\t\t\t\tmax\n\t\t\t}\n\t\t\t... on SinglePrice {\n\t\t\t\tvalue\n\t\t\t}\n\t\t}\n\t}\n"
-): ListedProductStore;
-
-export function graphql(
-    str: "\n\tquery Products($slug: String, $skip: Int, $take: Int) {\n\t\tsearch(\n\t\t\tinput: {\n\t\t\tcollectionSlug: $slug,\n\t\t\tgroupByProduct: true,\n\t\t\tskip: $skip,\n\t\t\ttake: $take \n\t\t\t}\n\t\t) {\n\t\t\ttotalItems\n\t\t\titems {\n\t\t\t\tsku\n\t\t\t\tproductVariantId\n\t\t\t\tproductName\n\t\t\t\tslug\n\t\t\t\tdescription\n\t\t\t\tproductAsset {\n\t\t\t\t\tid\n\t\t\t\t\tpreview\n\t\t\t\t}\n\t\t\t\tpriceWithTax {\n\t\t\t\t\t... on SinglePrice {\n\t\t\t\t\t\tvalue\n\t\t\t\t\t}\n\t\t\t\t\t... on PriceRange {\n\t\t\t\t\t\tmin\n\t\t\t\t\t\tmax\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t\tcurrencyCode\n\t\t\t\tcollectionIds\n\t\t\t}\n\t\t\tcollections{\n\t\t\t\tcollection{\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tslug\n\t\t\t\t\tparentId\n\t\t\t\t\tposition\n\t\t\t\t}\n\t\t\t}\n\t\t\tfacetValues{\n\t\t\t\tfacetValue{\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t\tcode\n\t\t\t\t\tfacet{\n\t\t\t\t\t\tid\n\t\t\t\t\t\tname\n\t\t\t\t\t\tcode\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
-): ProductsStore;
-
-export function graphql(
-    str: "\n\tquery Product($slug: String, $id: ID) {\n\t\tproduct(slug: $slug, id: $id) {\n\t\t\t...DetailedProduct\n\t\t}\n\t}\n"
-): ProductStore;
-
-export function graphql(
-    str: "\n\tfragment DetailedProduct on Product {\n\t\tid\n\t\tname\n\t\tdescription\n\t\toptionGroups{\n\t\t\tid\n\t\t\tcode\n\t\t\tname\n\t\t\toptions{\n\t\t\t\tid\n\t\t\t\tcode\n\t\t\t\tname\n\t\t\t}\n\t\t}\n\t\tcollections {\n\t\t\tid\n\t\t\tslug\n\t\t\tname\n\t\t\tbreadcrumbs {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tslug\n\t\t\t}\n\t\t}\n\t\tfacetValues {\n\t\t\tfacet {\n\t\t\t\tid\n\t\t\t\tcode\n\t\t\t\tname\n\t\t\t}\n\t\t\tid\n\t\t\tcode\n\t\t\tname\n\t\t}\n\t\tfeaturedAsset {\n\t\t\tid\n\t\t\tpreview\n\t\t}\n\t\tassets {\n\t\t\tid\n\t\t\tpreview\n\t\t}\n\t\tvariants {\n\t\t\tid\n\t\t\tname\n\t\t\tsku\n\t\t\tstockLevel\n\t\t\tcurrencyCode\n\t\t\tprice\n\t\t\tpriceWithTax\n\t\t\toptions{\n\t\t\t\tid\n\t\t\t\tcode\n\t\t\t\tname\n\t\t\t}\n\t\t\tfacetValues {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tfacet {\n\t\t\t\t\tid\n\t\t\t\t\tname\n\t\t\t\t}\n\t\t\t}\n\t\t\tfeaturedAsset {\n\t\t\t\tid\n\t\t\t\tpreview\n\t\t\t}\n\t\t\tassets {\n\t\t\t\tid\n\t\t\t\tpreview\n\t\t\t}\n\t\t}\n\t}\n"
-): DetailedProductStore;
 
 export function graphql(
     str: "\n\tmutation CreateCustomerAddressMutation($input: CreateAddressInput!) {\n\t\tcreateCustomerAddress(input: $input) {\n\t\t\t...Address\n\t\t\t__typename\n\t\t}\n\t}\n"
@@ -156,6 +151,18 @@ export function graphql(
 ): ActiveCustomerAddressesStore;
 
 export function graphql(
+    str: "\n\tquery Collection($slug: String, $id: ID) {\n\t\tcollection(slug: $slug, id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\tslug\n\t\t\tbreadcrumbs {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tslug\n\t\t\t}\n\t\t\tproductVariants {\n\t\t\t\ttotalItems\n\t\t\t\titems {\n\t\t\t\t\tid\n\t\t\t\t\tsku\n\t\t\t\t\tname\n\t\t\t\t\tcurrencyCode\n\t\t\t\t\tfeaturedAsset {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tpreview\n\t\t\t\t\t}\n\t\t\t\t\tprice\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
+): CollectionStore;
+
+export function graphql(
+    str: "\n\tquery Collections($options: CollectionListOptions) {\n\t\tcollections(options: $options) {\n\t\t\ttotalItems\n\t\t\titems {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tslug\n\t\t\t\tparent{\n\t\t\t\t\tname\n\t\t\t\t}\n\t\t\t\tfeaturedAsset{\n\t\t\t\t\tid\n\t\t\t\t\tpreview\n\t\t\t\t}\n\t\t\t\tproductVariants{\n\t\t\t\t\ttotalItems\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
+): CollectionsStore;
+
+export function graphql(
+    str: "\n\tquery EligibleShippingMethods {\n\t\teligibleShippingMethods {\n\t\t\tid\n\t\t\tname\n\t\t\tcode\n\t\t\tdescription\n\t\t\tmetadata\n\t\t\tprice\n\t\t\tpriceWithTax\n\t\t}\n\t}\n"
+): EligibleShippingMethodsStore;
+
+export function graphql(
     str: "\n\tquery EligiblePaymentMethods {\n\t\teligiblePaymentMethods {\n\t\t\tid\n\t\t\tcode\n\t\t\tname\n\t\t\tdescription\n\t\t\teligibilityMessage\n\t\t\tisEligible\n\t\t}\n\t}\n"
 ): EligiblePaymentMethodsStore;
 
@@ -168,20 +175,8 @@ export function graphql(
 ): AddPaymentToOrderStore;
 
 export function graphql(
-    str: "\n\tquery EligibleShippingMethods {\n\t\teligibleShippingMethods {\n\t\t\tid\n\t\t\tname\n\t\t\tdescription\n\t\t\tmetadata\n\t\t\tprice\n\t\t\tpriceWithTax\n\t\t}\n\t}\n"
-): EligibleShippingMethodsStore;
-
-export function graphql(
     str: "\n\tquery AvailableCountries {\n\t\tavailableCountries {\n\t\t\tid\n\t\t\tname\n\t\t\tcode\n\t\t}\n\t}\n"
 ): AvailableCountriesStore;
-
-export function graphql(
-    str: "\n\tquery Collection($slug: String, $id: ID) {\n\t\tcollection(slug: $slug, id: $id) {\n\t\t\tid\n\t\t\tname\n\t\t\tslug\n\t\t\tbreadcrumbs {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tslug\n\t\t\t}\n\t\t\tproductVariants {\n\t\t\t\ttotalItems\n\t\t\t\titems {\n\t\t\t\t\tid\n\t\t\t\t\tsku\n\t\t\t\t\tname\n\t\t\t\t\tcurrencyCode\n\t\t\t\t\tfeaturedAsset {\n\t\t\t\t\t\tid\n\t\t\t\t\t\tpreview\n\t\t\t\t\t}\n\t\t\t\t\tprice\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
-): CollectionStore;
-
-export function graphql(
-    str: "\n\tquery Collections($options: CollectionListOptions) {\n\t\tcollections(options: $options) {\n\t\t\ttotalItems\n\t\t\titems {\n\t\t\t\tid\n\t\t\t\tname\n\t\t\t\tslug\n\t\t\t\tparent{\n\t\t\t\t\tname\n\t\t\t\t}\n\t\t\t\tfeaturedAsset{\n\t\t\t\t\tid\n\t\t\t\t\tpreview\n\t\t\t\t}\n\t\t\t\tproductVariants{\n\t\t\t\t\ttotalItems\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n"
-): CollectionsStore;
 
 export function graphql(
     str: "\n\tmutation RequestPasswordReset($emailAddress: String!) {\n\t\trequestPasswordReset(emailAddress: $emailAddress) {\n\t\t\t__typename\n\t\t\t... on Success {\n\t\t\t\tsuccess\n\t\t\t}\n\t\t\t... on ErrorResult {\n\t\t\t\terrorCode\n\t\t\t\tmessage\n\t\t\t}\n\t\t}\n\t}\n"

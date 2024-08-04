@@ -1,9 +1,10 @@
-import { GetOrderShippingMethodsStore } from "$houdini";
-import { error, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
+import { EligibleShippingMethodsStore } from "$houdini";
+import type { ShippingMethod } from "$lib/types";
+import { error, json, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
 
 export const GET = (async (event: RequestEvent) => {
 
-	const store = new GetOrderShippingMethodsStore()
+	const store = new EligibleShippingMethodsStore()
 	const order = await store.fetch({ event })
 	const shippingMethods = order.data?.eligibleShippingMethods
 
@@ -11,6 +12,6 @@ export const GET = (async (event: RequestEvent) => {
 		throw error(500, { message: 'Failed to get shipping methods ', code: 'INTERNAL_SERVER_ERROR' });
 	}
 
-	return new Response(JSON.stringify(shippingMethods), { status: 200 });
+	return json(shippingMethods as ShippingMethod[])
 
 }) satisfies RequestHandler;

@@ -1,18 +1,18 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { order, user } from "$lib/store";
-  import { formatPrice } from "$lib/utiles";
+  import { order, state, user } from "$lib/store";
   import VendureAsset from "$lib/components/VendureAsset.svelte";
   import type { ActionData } from "./$types";
   import Quantity from "$lib/components/Quantity.svelte";
   import { CUSTOMER_NOT_DEFINED_ID } from "$lib/constants";
+    import { formatPrice } from "$lib/utils";
 
   let input = {
     fullName: "John Doe",
     email: "joe@email.com",
   };
 
-  $: orderLines = $order?.lines;
+  $: orderLines = $state.activeOrder?.lines;
 
   export let form: ActionData;
   $: if (form) $order = form.activeOrder || null;
@@ -105,7 +105,7 @@
       </div>
     {/if}
   </div>
-  {#if $order}
+  {#if $state.activeOrder}
     <div class="cart__actions">
       <a href="/shop" class="btn flex btn--md">
         <i class="fi-rs-shopping-bag"></i> Continue Shopping
@@ -151,7 +151,7 @@
               ><span class="cart__total-price">
                 {formatPrice(
                   Number($order.subTotalWithTax),
-                  $order.currencyCode
+                  $state.activeOrder.currencyCode
                 )}
               </span></td
             >

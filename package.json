@@ -34,6 +34,7 @@
   },
   "type": "module",
   "dependencies": {
+    "svelte-paystack": "^0.2.2",
     "swiper": "^11.1.8"
   }
 }
