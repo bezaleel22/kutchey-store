@@ -7,7 +7,7 @@ export const POST = (async (event: RequestEvent) => {
 	if (!id) { throw error(400, 'bad format') }
 
 	const shippingStore = new SetOrderShippingMethodStore()
-	const result = await shippingStore.mutate(id, { event })
+	const result = await shippingStore.mutate({ shippingMethodId: [id] }, { event })
 	if (!result.data) {
 		throw error(500, { message: `Failed to set shipping method`, code: 'INTERNAL_SERVER_ERROR' });
 	}

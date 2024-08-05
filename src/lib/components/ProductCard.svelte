@@ -1,7 +1,7 @@
 <script lang="ts">
   import { state } from "$lib/store";
   import type { Product } from "$lib/types";
-  import { formatPrice } from "$lib/utiles";
+  import { formatPrice } from "$lib/utils";
 
   export let product: Product;
 </script>
@@ -54,20 +54,13 @@
       </div>
       <div class="product__price flex">
         <span class="new__price">
-          {formatPrice(product.price.min, product.currencyCode)}
+          {formatPrice(product.price.min)}
         </span>
         <del class="old__price">
-          {formatPrice(
-            product.price.min,
-            product.currencyCode,
-            product.discountedPercent
-          )}
+          {formatPrice(product.price.min, product.discountedPercent)}
         </del>
       </div>
-      <button
-        class="action__btn cart__btn"
-        aria-label="Add To Cart"
-      >
+      <button class="action__btn cart__btn" aria-label="Add To Cart">
         <i class="fi fi-rs-shopping-bag-add"></i>
       </button>
     </div>

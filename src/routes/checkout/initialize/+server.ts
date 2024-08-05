@@ -1,5 +1,5 @@
 import { PAYSTACK_SECRET_KEY } from "$env/static/private";
-import type { PaymentAuth, VerifyPayment } from "$lib/types";
+import type { PaymentAuth } from "$lib/types";
 import { error, json, type RequestEvent, type RequestHandler } from "@sveltejs/kit";
 
 
@@ -20,18 +20,5 @@ export const POST = (async ({ request }: RequestEvent) => {
 	if (!response.ok) throw error(500, { message: "Unable to start checkout process" })
 	const paymentAuth = await response.json()
 	return json(paymentAuth)
-
-}) satisfies RequestHandler;
-
-
-export const GET = (async ({ url }: RequestEvent) => {
-	const reference = url.searchParams.get("ref")
-	const endpoint = `https://api.paystack.co/transaction/verify/${reference}`
-
-	const response = await fetch<VerifyPayment>(endpoint)
-	if (!response.ok) throw error(500, { message: `Unable to veryfy transaction with ref: ${reference}` })
-
-	const verify = await response.json()
-	return json(verify)
 
 }) satisfies RequestHandler;

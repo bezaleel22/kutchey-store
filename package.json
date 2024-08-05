@@ -14,7 +14,8 @@
     "@egoist/tailwindcss-icons": "^1.8.1",
     "@fontsource/fira-mono": "^4.5.10",
     "@neoconfetti/svelte": "^1.0.0",
-    "@sveltejs/adapter-auto": "^3.0.0",
+    "@sveltejs/adapter-auto": "^3.2.2",
+    "@sveltejs/adapter-node": "^5.2.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
     "@types/eslint": "^9.6.0",
@@ -34,7 +35,7 @@
   },
   "type": "module",
   "dependencies": {
-    "svelte-paystack": "^0.2.2",
+    "@paystack/inline-js": "^2.19.2",
     "swiper": "^11.1.8"
   }
 }

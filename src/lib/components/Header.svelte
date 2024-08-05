@@ -1,10 +1,10 @@
 <script lang="ts">
   import { browser } from "$app/environment";
-  import { order, state } from "$lib/store";
+  import { state } from "$lib/store";
 
   let showmenu: boolean = false;
 
-  $: if (browser) console.log({ $order });
+  // $: if (browser) console.log({ ...$state.activeOrder });
 </script>
 
 <header class="header">
@@ -44,15 +44,15 @@
 
       <ul class="nav__list">
         <li class="nav__item">
-          <a href="index.html" class="nav__link active-link">Home</a>
+          <a href="/" class="nav__link active-link">Home</a>
         </li>
 
         <li class="nav__item">
-          <a href="shop.html" class="nav__link">Shop</a>
+          <a href="/shop" class="nav__link">Shop</a>
         </li>
 
         <li class="nav__item">
-          <a href="accounts.html" class="nav__link">My Account</a>
+          <a href="/account" class="nav__link">My Account</a>
         </li>
 
         <li class="nav__item">
@@ -60,7 +60,7 @@
         </li>
 
         <li class="nav__item">
-          <a href="login-register.html" class="nav__link">Login</a>
+          <a href="/auth" class="nav__link">Login</a>
         </li>
       </ul>
 
@@ -85,7 +85,7 @@
 
       <a href="/cart" class="header__action-btn">
         <img src="/assets/img/icon-cart.svg" alt="" />
-        <span class="count">{$order?.totalQuantity || 0}</span>
+        <span class="count">{$state?.activeOrder?.totalQuantity || 0}</span>
       </a>
 
       <button

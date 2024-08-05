@@ -1,8 +1,9 @@
+// @ts-nocheck
 import { ActiveCustomerAddressesStore, EligiblePaymentMethodsStore, EligibleShippingMethodsStore } from '$houdini'
 import { error } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
-export const load: PageServerLoad = async function (event) {
+export const load = async function (event: Parameters<PageServerLoad>[0]) {
 
     const shipingStore = new EligibleShippingMethodsStore()
     const addresStore = new ActiveCustomerAddressesStore()

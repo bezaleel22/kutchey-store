@@ -5,18 +5,13 @@
   import type { ActionData } from "./$types";
   import Quantity from "$lib/components/Quantity.svelte";
   import { CUSTOMER_NOT_DEFINED_ID } from "$lib/constants";
-    import { formatPrice } from "$lib/utils";
-
-  let input = {
-    fullName: "John Doe",
-    email: "joe@email.com",
-  };
+  import { formatPrice } from "$lib/utils";
 
   $: orderLines = $state.activeOrder?.lines;
 
   export let form: ActionData;
-  $: if (form) $order = form.activeOrder || null;
-  // $: if (browser) console.log({ form });
+  $: if (form) $state.activeOrder = form.activeOrder || null;
+  $: if (browser) console.log({ orderLines });
 </script>
 
 <section class="breadcrumb">
@@ -69,10 +64,7 @@
 
             <td>
               <span class="table__price">
-                {formatPrice(
-                  Number(line.unitPriceWithTax),
-                  line.productVariant.currencyCode
-                )}
+                {formatPrice(Number(line.unitPriceWithTax))}
               </span>
             </td>
 
@@ -82,10 +74,7 @@
 
             <td>
               <span class="table__subtotal">
-                {formatPrice(
-                  Number(line.linePriceWithTax),
-                  line.productVariant.currencyCode
-                )}
+                {formatPrice(Number(line.linePriceWithTax))}
               </span>
             </td>
 
@@ -117,7 +106,7 @@
     <i class="fi fi-rs-fingerprint"></i>
   </div>
 
-  {#if $order}
+  {#if $state.activeOrder}
     <div class="cart__group grid">
       <div>
         <div class="cart__coupon">
@@ -149,10 +138,7 @@
             <td><span class="cart__total-title">Cart Subtotal</span></td>
             <td
               ><span class="cart__total-price">
-                {formatPrice(
-                  Number($order.subTotalWithTax),
-                  $state.activeOrder.currencyCode
-                )}
+                {formatPrice(Number($state.activeOrder.subTotalWithTax))}
               </span></td
             >
           </tr>
@@ -170,16 +156,13 @@
             <td><span class="cart__total-title">Total</span></td>
             <td
               ><span class="cart__total-price">
-                {formatPrice(Number($order.totalWithTax), $order.currencyCode)}
+                {formatPrice(Number($state.activeOrder.totalWithTax))}
               </span></td
             >
           </tr>
         </table>
 
-        <a
-          href={$user.id == CUSTOMER_NOT_DEFINED_ID ? "/auth" : "/checkout"}
-          class="btn flex btn--md"
-        >
+        <a href="/checkout" class="btn flex btn--md">
           <i class="fi fi-rs-box-alt"></i> Proceed To Checkout
         </a>
       </div>

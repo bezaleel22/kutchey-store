@@ -1,7 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import type { DetailedProduct$data } from "$houdini";
-  import { formatPrice } from "$lib/utiles";
+  import { formatPrice } from "$lib/utils";
 
   export let product: DetailedProduct$data | null;
   $: variant = product?.variants[0];
@@ -54,7 +54,7 @@
 
       <div class="details__price flex">
         <span class="new__price">
-          {formatPrice(Number(variant.priceWithTax), variant.currencyCode)}
+          {formatPrice(Number(variant.priceWithTax))}
         </span>
         <span class="old__price">$200.00</span>
         <span class="save__price">25% Off</span>

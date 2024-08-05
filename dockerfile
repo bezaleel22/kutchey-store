@@ -1,5 +1,5 @@
-FROM oven/bun:1 AS base
-WORKDIR /usr/src/app
+FROM oven/bun:1.1.17 AS base
+WORKDIR /app
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
@@ -21,15 +21,15 @@ COPY . .
 
 # [optional] tests & build
 ENV NODE_ENV=production
+ENV CHANNEL_TOKEN="Fqw9Pk5YaUbtQ0xfTr6jTUPVZDgpNFWm"
+ENV PAYSTACK_SECRET_KEY="sk_test_414679be0fe780fca20430fb20e338062bd35cf5"
 RUN bun run build
 
 # copy production dependencies and source code into final image
 FROM base AS release
 COPY --from=install /temp/prod/node_modules node_modules
-COPY --from=prerelease /usr/src/app/index.ts .
-COPY --from=prerelease /usr/src/app/package.json .
+COPY --from=prerelease /app/build build
+COPY --from=prerelease /app/package.json .
 
-# run the app
-USER bun
 EXPOSE 3000/tcp
 ENTRYPOINT [ "bun", "start" ]

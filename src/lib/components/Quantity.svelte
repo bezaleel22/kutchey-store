@@ -1,26 +1,28 @@
 <script lang="ts">
+  import { browser } from "$app/environment";
   import { enhance } from "$app/forms";
-  import { order } from "$lib/store";
+  import { state } from "$lib/store";
 
   export let index: number;
 
   let form: HTMLFormElement;
-  let mutate: boolean = false;  
-  $: line = $order?.lines[index];
+  let mutate: boolean = false;
+  $: line = $state.activeOrder?.lines[index];
   $: quantity = line?.quantity ?? 0;
+  $: if (browser) console.log({ ...line });
 
   const update = (sum: number) => {
-    if (!$order || !line) return;
-    const lines = $order.lines.filter((l) => l.id != line.id);
+    if (!$state.activeOrder || !line) return;
+    const lines = $state.activeOrder.lines.filter((l) => l.id != line.id);
 
     if (sum < 0 && mutate) quantity = Number(line?.quantity) + sum;
     quantity = mutate ? Number(line?.quantity) : quantity + sum;
     lines.push({ ...line, quantity });
-    $order = { ...$order, lines };
+    $state.activeOrder = { ...$state.activeOrder, lines };
 
     form.action = `?/updateItem&id=${line.id}&qty=${quantity}`;
     form.requestSubmit();
-
+    
     mutate = false;
   };
 </script>

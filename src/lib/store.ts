@@ -2,7 +2,7 @@ import { type OrderDetail$data } from "$houdini";
 import { error } from "@sveltejs/kit";
 import { get, writable } from "svelte/store";
 import { CUSTOMER_NOT_DEFINED_ID } from "./constants";
-import type { ActiveCustomer, Collection, Contact, Country, PaymentAuth, PaymentMethod, Product, ShippingAddress, ShippingMethod, VerifyPayment } from "./types";
+import type { ActiveCustomer, Collection, Contact, Country, PaymentAuth, PaymentMethod, Product, ShippingAddress, ShippingMethod, Transaction, VerifyPayment } from "./types";
 
 
 export const order = writable<OrderDetail$data | null>();
@@ -13,7 +13,7 @@ export const userLocale = writable<string | null>(null)
 interface State {
     favoriteProduct: Product[]
     collections?: Collection[];
-    activeOrder: OrderDetail$data;
+    activeOrder: OrderDetail$data | null;
     showCart: boolean
     showMenu: boolean
     customer: ActiveCustomer
@@ -121,13 +121,15 @@ const AppState = () => {
     }
 
     const setOrderState = async (state: string) => {
-        const response = await fetch('/checkout/set-order-state', {
+        const response = await fetch<OrderDetail$data>('/checkout/set-order-state', {
             method: 'POST',
             body: JSON.stringify({ state })
         })
 
-        if (!response.ok) throw error(500, { message: "Unable to start checkout process" })
-        update((store) => ({ ...store, orderState: state }));
+        if (!response.ok) throw error(500, { message: "Transition order to state" })
+        const activeOrder = await response.json()
+        update((store) => ({ ...store, activeOrder }));
+        return activeOrder || null
     }
 
     const createAddress = async (address: ShippingAddress) => {
@@ -164,9 +166,10 @@ const AppState = () => {
     }
 
 
-    const addPaymentToOrder = async () => {
+    const addPaymentToOrder = async (trx: Transaction, amount: number, methodCode: string) => {
         const response = await fetch<OrderDetail$data>('/checkout/add-payment', {
             method: 'POST',
+            body: JSON.stringify({ trx, amount, methodCode })
         })
 
         if (!response.ok) throw error(500, { message: "Unable to set shipping option" })

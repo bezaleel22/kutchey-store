@@ -1,4 +1,4 @@
-import { ActiveCustomerStore, ActiveOrderStore, OrderDetailStore, getSession, setSession, type OrderDetail } from '$houdini'
+import { ActiveCustomerStore, ActiveOrderStore, OrderDetailStore, getSession, setSession } from '$houdini'
 import type { ActiveCustomer } from '$lib/types'
 import type { RequestEvent } from '@sveltejs/kit'
 import { get } from 'svelte/store'
@@ -14,7 +14,7 @@ export const setUserSession = async function (event: RequestEvent): Promise<Requ
 
     const orderResult = await order.fetch({ event })
     if (orderResult.data) {
-        let detailStore = new OrderDetailStore().get(orderResult.data.activeOrder);
+        const detailStore = new OrderDetailStore().get(orderResult.data.activeOrder);
         event.locals.cart = get(detailStore)
     }
     const customerResult = await customer.fetch({ event })

@@ -1,9 +1,7 @@
 // @ts-nocheck
 import { ProductsStore } from '$houdini'
 import { getProducts } from '$lib/server/provider/shop'
-import { fail, type Actions, type RequestEvent } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
-import type { message } from 'sveltekit-superforms'
 
 export const load = async function (event: Parameters<PageServerLoad>[0]) {
     const store = new ProductsStore()

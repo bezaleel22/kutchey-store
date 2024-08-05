@@ -1,7 +1,7 @@
 <script lang="ts">
   import { state } from "$lib/store";
   import type { Product } from "$lib/types";
-  import { formatPrice } from "$lib/utiles";
+  import { formatPrice } from "$lib/utils";
 
   export let product: Product;
   let days: number = 0;
@@ -46,12 +46,11 @@
 
   <div class="deals__price flex">
     <span class="new__price"
-      >{formatPrice(product.price.min, product.currencyCode)}</span
+      >{formatPrice(product.price.min)}</span
     >
     <del class="old__price"
       >{formatPrice(
         product.price.min,
-        product.currencyCode,
         product.discountedPercent
       )}</del
     >

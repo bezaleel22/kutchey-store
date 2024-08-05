@@ -1,7 +1,8 @@
 import type { SearchProduct$result } from "$houdini";
-import type { HasParent, RootNode, ShippingMethodQuote, TreeNode } from "$lib/types"
+import type { HasParent, RootNode, ShippingMethod, TreeNode } from "$lib/types"
 
 import {
+	DEFAULT_CURRENCY,
 	PUBLIC_LOCAL_PICKUP_CODE,
 	SITE_DESCRIPTION,
 	SITE_IMAGE,
@@ -11,6 +12,21 @@ import {
 import type { ActiveCustomer, FacetWithValues, ShippingAddress } from '$lib/types';
 import { get } from "svelte/store";
 import { currencyCode, userLocale } from "$lib/store";
+
+export const generateRef = (datePrefix: string = "PAY", length: number = 6): string => {
+	const date = new Date();
+	const year = date.getFullYear();
+	const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are 0-based
+	const day = date.getDate().toString().padStart(2, '0');
+	
+	const dateString = `${year}${month}${day}`;
+	const uuid = crypto.randomUUID();
+
+	const randomString = uuid.replace(/-/g, '').substring(0, length).toUpperCase(); // Take the first 6 characters of the UUID
+	// console.log({ ref: `${datePrefix}-${dateString}-${randomString}` });
+	// Format: PREFIX-YYYYMMDD-RANDOM
+	return `${datePrefix}-${dateString}-${randomString}`;
+}
 
 export const formatCurrency = (value: number) => {
 	const majorUnits = value / 100
@@ -24,7 +40,7 @@ export const formatCurrency = (value: number) => {
 	}).format(majorUnits)
 }
 
-export const selectCheapestShippingOption = async (shippingOptions: ShippingMethodQuote[]) => {
+export const selectCheapestShippingOption = async (shippingOptions: ShippingMethod[]) => {
 	// set cheapest shipping option as default, but make sure it is not local pickup
 	if (shippingOptions) {
 		let index = 0
@@ -40,15 +56,15 @@ export const selectCheapestShippingOption = async (shippingOptions: ShippingMeth
 	}
 }
 
-export const selectPickupOption = async (shippingOptions: ShippingMethodQuote[]) => {
-    if (shippingOptions) {
-        const pickupIndex = shippingOptions.findIndex(v => v.code === PUBLIC_LOCAL_PICKUP_CODE)
-        if (pickupIndex === -1) {
+export const selectPickupOption = async (shippingOptions: ShippingMethod[]) => {
+	if (shippingOptions) {
+		const pickupIndex = shippingOptions.findIndex(v => v.code === PUBLIC_LOCAL_PICKUP_CODE)
+		if (pickupIndex === -1) {
 			return { error: "There are no shipping options available" }
-        } else {
-           return { id: shippingOptions[pickupIndex] }
-        }
-    }
+		} else {
+			return { id: shippingOptions[pickupIndex] }
+		}
+	}
 }
 
 /**
@@ -94,7 +110,7 @@ export function arrayToTree<T extends HasParent>(nodes: T[]): RootNode<T> | null
 
 export const getRandomInt = (max: number) => Math.floor(Math.random() * max);
 
-export function formatPrice(value: number, currency: string, discount?: number) {
+export function formatPrice(value: number, discount?: number) {
 	let price =
 		Number(value) / 100;
 
@@ -103,7 +119,7 @@ export function formatPrice(value: number, currency: string, discount?: number) 
 
 	return new Intl.NumberFormat('en-US', {
 		style: 'currency',
-		currency,
+		currency: DEFAULT_CURRENCY,
 	}).format(price);
 }
 

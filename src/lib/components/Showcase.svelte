@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Product } from "$lib/types";
-  import { formatPrice } from "$lib/utiles";
+  import { formatPrice } from "$lib/utils";
 
   export let result: { totalItems?: number; products: Product[] | null };
   export let title: string;
@@ -26,12 +26,11 @@
 
           <div class="deals__price flex">
             <span class="new__price"
-              >{formatPrice(product.price.min, product.currencyCode)}</span
+              >{formatPrice(product.price.min)}</span
             >
             <del class="old__price"
               >{formatPrice(
                 product.price.min,
-                product.currencyCode,
                 product.discountedPercent
               )}</del
             >

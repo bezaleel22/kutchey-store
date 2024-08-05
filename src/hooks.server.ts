@@ -1,4 +1,3 @@
-import { setSession } from '$houdini'
 import { setUserSession } from '$lib/server/midleware/session'
 import type { Handle } from '@sveltejs/kit'
 

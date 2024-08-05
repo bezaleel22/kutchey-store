@@ -39,7 +39,7 @@ declare global {
 	declare function fetch<ResponseType = unknown>(
 		input: RequestInfo | URL, init?: TypedRequestInit
 	): Promise<TypedResponse<ResponseType>>;
-}
 
-declare module '@paystack/inline-js'
+	declare module "@paystack/inline-js";
+}
 export { };
