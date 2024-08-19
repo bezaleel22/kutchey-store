@@ -1,0 +1,13 @@
+services:
+  storefront:
+    image: storefront
+    container_name: webstore
+    ports:
+      - 8000:3000
+    environment:
+      NODE_ENV: development
+      CHANNEL_TOKEN: "Fqw9Pk5YaUbtQ0xfTr6jTUPVZDgpNFWm"
+      SHOPAPI_DEV_URL: "http://localhost:3000/shop-api"
+      SHOPAPI_PROD_URL: "http://store.beznet.org/shop-api"
+      PAYSTACK_SECRET_KEY: "sk_test_414679be0fe780fca20430fb20e338062bd35cf5"
+      ORIGIN: http://localhost:8000
