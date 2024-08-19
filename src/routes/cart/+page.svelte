@@ -1,7 +1,7 @@
 <script lang="ts">
   import { browser } from "$app/environment";
   import { order, state, user } from "$lib/store";
-  import VendureAsset from "$lib/components/VendureAsset.svelte";
+  import VendureAsset from "$lib/components/Asset.svelte";
   import type { ActionData } from "./$types";
   import Quantity from "$lib/components/Quantity.svelte";
   import { CUSTOMER_NOT_DEFINED_ID } from "$lib/constants";

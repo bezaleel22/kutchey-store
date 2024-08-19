@@ -96,12 +96,7 @@ export default {
         },
 
         "types": {
-            "RegisterCustomerCustomFieldsInput": {
-                "avatarId": "ID"
-            },
-
             "RegisterCustomerInput": {
-                "customFields": "RegisterCustomerCustomFieldsInput",
                 "emailAddress": "String",
                 "firstName": "String",
                 "lastName": "String",

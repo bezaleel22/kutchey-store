@@ -186,7 +186,6 @@ type CustomerFilterParameter = {
 };
 
 type CustomerSortParameter = {
-    avatar?: ValueOf<typeof SortOrder> | null | undefined;
     createdAt?: ValueOf<typeof SortOrder> | null | undefined;
     emailAddress?: ValueOf<typeof SortOrder> | null | undefined;
     firstName?: ValueOf<typeof SortOrder> | null | undefined;
@@ -1191,7 +1190,7 @@ export declare type CacheTypeDef = {
                     args: never;
                 };
                 customFields: {
-                    type: Record<CacheTypeDef, "CustomerCustomFields"> | null;
+                    type: Object | null;
                     args: never;
                 };
                 emailAddress: {
@@ -1230,16 +1229,6 @@ export declare type CacheTypeDef = {
                 };
                 user: {
                     type: Record<CacheTypeDef, "User"> | null;
-                    args: never;
-                };
-            };
-            fragments: [];
-        };
-        CustomerCustomFields: {
-            idFields: never;
-            fields: {
-                avatar: {
-                    type: Record<CacheTypeDef, "Asset"> | null;
                     args: never;
                 };
             };

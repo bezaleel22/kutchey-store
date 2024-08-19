@@ -5,6 +5,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 /*=============== VARIABLES CSS ===============*/
 :root {
   --header-height: 4rem;
@@ -618,18 +619,22 @@ table {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.deals__item:nth-child(1) {
-  background-image: url(/assets/img/deals-1.jpg);
+/* .deals__item:nth-child(1) {
+  background-image: url(/assets/img/deals-1.webp);
 }
 
 .deals__item:nth-child(2) {
-  background-image: url(/assets/img/deals-2.png);
+  background-image: url(/assets/img/deals-1.webp);
+} */
+
+.deals__bg {
+  background-image: url(/assets/img/deals-1.webp);
+  background-size: cover;
+  background-position: center;
 }
 
 .deals__item {
   padding: 3rem;
-  background-size: cover;
-  background-position: center;
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;

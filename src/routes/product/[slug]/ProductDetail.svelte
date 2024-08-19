@@ -17,30 +17,32 @@
     optionId = optId;
     console.log({ variant });
   };
+  const setVariant = (idx: number) => {
+    variant = product?.variants[idx];
+     console.log({ ...variant });
+  };
 
+   console.log({ ...product });
 </script>
 
 {#if product && variant}
-  <div class="details__container container grid">
+  <div class="details__container container grid space-y-12">
     <div class="details__group">
-      <div class="rounded-lg mb-3 h-5/6 max-[20px]: border border-first p-5">
+      <div class="rounded-lg mb-3 h-5/6 max-[20px] border border-first p-5">
         <img
           bind:this={mainImg}
           src={variant.featuredAsset?.preview}
-          alt=""
-          class="rounded-lg w-full h-full object-cover"
+          alt={product.name}
+          class="rounded-lg h-full object-cover"
         />
       </div>
 
       <div class="flex">
-        {#each variant.assets as asset}
-          <button
-            on:click={() => (mainImg.src = asset.preview)}
-            class="p-2 h-24 w-24"
-          >
+        {#each product.variants as variant, i}
+          <button on:click={() => setVariant(i)} class="p-2 h-24 w-24">
             <img
-              src={asset.preview}
-              alt=""
+              src={variant.featuredAsset?.preview}
+              alt={product.name}
               class="rounded-lg h-full w-full object-cover"
             />
           </button>
@@ -131,7 +133,7 @@
             </ul>
           </div>
         {/if}
-        {#if group.code == "size"}
+        {#if group.name == "size"}
           <div class="details__size flex">
             <span class="details__size-title">{group.name}</span>
 

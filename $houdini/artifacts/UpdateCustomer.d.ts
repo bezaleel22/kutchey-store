@@ -12,12 +12,8 @@ export type UpdateCustomer$result = {
     };
 };
 
-type UpdateCustomerCustomFieldsInput = {
-    avatarId?: string | null | undefined;
-};
-
 type UpdateCustomerInput = {
-    customFields?: UpdateCustomerCustomFieldsInput | null | undefined;
+    customFields?: Object | null | undefined;
     firstName?: string | null | undefined;
     lastName?: string | null | undefined;
     phoneNumber?: string | null | undefined;
@@ -80,11 +76,8 @@ export type UpdateCustomer$artifact = {
             "input": "UpdateCustomerInput";
         };
         "types": {
-            "UpdateCustomerCustomFieldsInput": {
-                "avatarId": "ID";
-            };
             "UpdateCustomerInput": {
-                "customFields": "UpdateCustomerCustomFieldsInput";
+                "customFields": "JSON";
                 "firstName": "String";
                 "lastName": "String";
                 "phoneNumber": "String";

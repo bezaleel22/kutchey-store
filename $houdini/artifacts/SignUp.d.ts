@@ -43,12 +43,7 @@ export type SignUp$result = {
     }));
 };
 
-type RegisterCustomerCustomFieldsInput = {
-    avatarId?: string | null | undefined;
-};
-
 type RegisterCustomerInput = {
-    customFields?: RegisterCustomerCustomFieldsInput | null | undefined;
     emailAddress: string;
     firstName?: string | null | undefined;
     lastName?: string | null | undefined;
@@ -182,11 +177,7 @@ export type SignUp$artifact = {
             "input": "RegisterCustomerInput";
         };
         "types": {
-            "RegisterCustomerCustomFieldsInput": {
-                "avatarId": "ID";
-            };
             "RegisterCustomerInput": {
-                "customFields": "RegisterCustomerCustomFieldsInput";
                 "emailAddress": "String";
                 "firstName": "String";
                 "lastName": "String";

@@ -2,6 +2,7 @@
   import { state } from "$lib/store";
   import type { Product } from "$lib/types";
   import { formatPrice } from "$lib/utils";
+  import Asset from "./Asset.svelte";
 
   export let product: Product;
 </script>
@@ -10,8 +11,9 @@
   <div class="product__item">
     <div class="product__banner">
       <a href="/product/{product.slug}" class="product__images h-64">
-        <img
-          src={product.featuredAsset?.preview}
+        <Asset
+          preview={product.featuredAsset?.preview}
+          preset='medium'
           alt=""
           class="product__img default h-full w-full object-cover"
         />

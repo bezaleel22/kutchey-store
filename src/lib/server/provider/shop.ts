@@ -1,4 +1,4 @@
-import type { Collection, CollectionStore, ProductsStore } from "$houdini"
+import type { ProductsStore } from "$houdini"
 import type { Product } from "$lib/types"
 import type { RequestEvent } from "@sveltejs/kit"
 
@@ -6,13 +6,13 @@ type inputProps = { slug?: string, take?: number, skip?: number }
 
 export const getProducts = async (input: inputProps, store: ProductsStore, event: RequestEvent) => {
     const { slug, take, skip } = input
-    const result = (await store.fetch({ variables: { slug, skip, take: take || 12 }, event })).data?.search
+    const result = (await store.fetch({ variables: { slug, skip, take: take || 10 }, event })).data?.search
     const discountFacet = result?.facetValues?.find(value => value.facetValue.name == "discount")
     const dealsFacet = result?.facetValues?.find(value => value.facetValue.name == "deals")
     const prodColls = result?.collections?.filter(coll => coll.collection.parentId != "1" && coll.collection.slug != input.slug)
     const totalItems = result?.totalItems
     const products = result?.items?.map(prod => {
-        let target = prodColls?.find(coll => prod.collectionIds?.includes(coll.collection.id))
+        const target = prodColls?.find(coll => prod.collectionIds?.includes(coll.collection.id))
         return {
             id: prod.productVariantId,
             name: prod.productName,

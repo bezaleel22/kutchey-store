@@ -11,4 +11,3 @@ services:
       SHOPAPI_PROD_URL: "http://store.beznet.org/shop-api"
       PAYSTACK_SECRET_KEY: "sk_test_414679be0fe780fca20430fb20e338062bd35cf5"
       ORIGIN: http://localhost:8000
-

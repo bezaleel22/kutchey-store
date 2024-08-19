@@ -50,12 +50,8 @@ export default {
         },
 
         "types": {
-            "UpdateCustomerCustomFieldsInput": {
-                "avatarId": "ID"
-            },
-
             "UpdateCustomerInput": {
-                "customFields": "UpdateCustomerCustomFieldsInput",
+                "customFields": "JSON",
                 "firstName": "String",
                 "lastName": "String",
                 "phoneNumber": "String",

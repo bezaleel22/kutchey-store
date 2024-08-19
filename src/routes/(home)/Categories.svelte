@@ -4,6 +4,7 @@
   import { Autoplay, Navigation } from "swiper/modules";
   import type { SwiperOptions } from "swiper/types";
   import { onMount } from "svelte";
+  import Asset from "$lib/components/Asset.svelte";
 
   let el: HTMLElement, next: HTMLElement, prev: HTMLElement;
   let init: boolean = false;
@@ -77,8 +78,9 @@
             class="inline-block border rounded-2xl text-center border-first p-3"
           >
             <div class="aspect-video mb-5">
-              <img
-                src={category.featuredAsset?.preview}
+              <Asset
+                preview={category.featuredAsset?.preview}
+                preset="small"
                 alt=""
                 class="h-full w-full object-cover rounded-lg"
               />

@@ -1,11 +1,11 @@
+// if (browser) console.log(dev)
 // These settings will be use to generate your SEO tags
 export const SITE_TITLE = "Kutchey Store"
 export const SITE_DESCRIPTION = "Store description"
 export const SITE_LOGO = "http://localhost:5173/logo.png"
 export const SITE_IMAGE = "http://localhost:5173/logo.png"
 export const SITE_URL = "http://localhost:5173"
-export const SHOPAPI_DEV_URL = "http://localhost:3000/shop-api"
-export const SHOPAPI_PROD_URL = "http://store.beznet.org/shop-api"
+export const SHOPAPI_URL = "http://localhost:3000/shop-api"
 export const PAYSTACK_URL = "https://api.paystack.co/transaction"
 export const PAYSTACK_PUBLIC_KEY = "pk_test_3b604e0ff89da154ea5a401c120607281e714724"
 

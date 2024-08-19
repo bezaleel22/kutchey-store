@@ -35,12 +35,8 @@ export type SetCustomerForOrder$result = {
     }));
 };
 
-type CreateCustomerCustomFieldsInput = {
-    avatarId?: string | null | undefined;
-};
-
 type CreateCustomerInput = {
-    customFields?: CreateCustomerCustomFieldsInput | null | undefined;
+    customFields?: Object | null | undefined;
     emailAddress: string;
     firstName: string;
     lastName: string;
@@ -494,11 +490,8 @@ fragment OrderDetail on Order {
             "input": "CreateCustomerInput";
         };
         "types": {
-            "CreateCustomerCustomFieldsInput": {
-                "avatarId": "ID";
-            };
             "CreateCustomerInput": {
-                "customFields": "CreateCustomerCustomFieldsInput";
+                "customFields": "JSON";
                 "emailAddress": "String";
                 "firstName": "String";
                 "lastName": "String";

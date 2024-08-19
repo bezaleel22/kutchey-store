@@ -343,12 +343,8 @@ input CreateAddressInput {
   streetLine2: String
 }
 
-input CreateCustomerCustomFieldsInput {
-  avatarId: ID
-}
-
 input CreateCustomerInput {
-  customFields: CreateCustomerCustomFieldsInput
+  customFields: JSON
   emailAddress: String!
   firstName: String!
   lastName: String!
@@ -866,7 +862,7 @@ union CustomFieldConfig = BooleanCustomFieldConfig | DateTimeCustomFieldConfig |
 type Customer implements Node {
   addresses: [Address!]
   createdAt: DateTime!
-  customFields: CustomerCustomFields
+  customFields: JSON
   emailAddress: String!
   firstName: String!
   id: ID!
@@ -876,10 +872,6 @@ type Customer implements Node {
   title: String
   updatedAt: DateTime!
   user: User
-}
-
-type CustomerCustomFields {
-  avatar: Asset
 }
 
 input CustomerFilterParameter {
@@ -929,7 +921,6 @@ input CustomerListOptions {
 }
 
 input CustomerSortParameter {
-  avatar: SortOrder
   createdAt: SortOrder
   emailAddress: SortOrder
   firstName: SortOrder
@@ -1975,7 +1966,6 @@ type Mutation {
 
   """Create a new Customer Address"""
   createCustomerAddress(input: CreateAddressInput!): Address!
-  createPastackPaymentIntent: String!
 
   """Delete an existing Address"""
   deleteCustomerAddress(id: ID!): Success!
@@ -3310,12 +3300,7 @@ type RegionTranslation {
 
 union RegisterCustomerAccountResult = MissingPasswordError | NativeAuthStrategyError | PasswordValidationError | Success
 
-input RegisterCustomerCustomFieldsInput {
-  avatarId: ID
-}
-
 input RegisterCustomerInput {
-  customFields: RegisterCustomerCustomFieldsInput
   emailAddress: String!
   firstName: String
   lastName: String
@@ -3641,14 +3626,10 @@ input UpdateAddressInput {
   streetLine2: String
 }
 
-input UpdateCustomerCustomFieldsInput {
-  avatarId: ID
-}
-
 union UpdateCustomerEmailAddressResult = IdentifierChangeTokenExpiredError | IdentifierChangeTokenInvalidError | NativeAuthStrategyError | Success
 
 input UpdateCustomerInput {
-  customFields: UpdateCustomerCustomFieldsInput
+  customFields: JSON
   firstName: String
   lastName: String
   phoneNumber: String

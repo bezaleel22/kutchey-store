@@ -27,13 +27,13 @@
     <div class="home__content">
       <span class="home__subtitle">Hot promotions</span>
       <h1 class="home__title">
-        Fashion Trending <span>Great Collection</span>
+        Home Trending <span>Appliance Collection</span>
       </h1>
       <p class="home__description">Save more with coupons & up to 20% off</p>
-      <a href="shop.html" class="btn">Shop Now</a>
+      <a href="/shop" class="btn">Shop Now</a>
     </div>
 
-    <img src="/assets/img/home-img.png" alt="" class="home__img" />
+    <img src="/assets/img/category-13.jpg" alt="" class="home__img" />
   </div>
 </section>
 

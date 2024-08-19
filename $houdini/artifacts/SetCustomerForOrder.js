@@ -482,12 +482,8 @@ fragment OrderDetail on Order {
         },
 
         "types": {
-            "CreateCustomerCustomFieldsInput": {
-                "avatarId": "ID"
-            },
-
             "CreateCustomerInput": {
-                "customFields": "CreateCustomerCustomFieldsInput",
+                "customFields": "JSON",
                 "emailAddress": "String",
                 "firstName": "String",
                 "lastName": "String",

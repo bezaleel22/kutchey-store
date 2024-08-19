@@ -3,7 +3,7 @@
 /** @type {import('houdini').ConfigFile} */
 const config = {
   watchSchema: {
-    url: "http://localhost:3000/shop-api",
+    url: "https://store.beznet.org/shop-api",
   },
   plugins: {
     "houdini-svelte": {},
