@@ -5,7 +5,6 @@ ARG NODE_ENV
 ARG PUBLIC_CHANNEL_TOKEN
 ARG PAYSTACK_SECRET_KEY
 ARG PUBLIC_SHOP_API
-RUN env
 
 # install dependencies into temp directory
 # this will cache them and speed up future builds
@@ -26,9 +25,6 @@ COPY --from=install /temp/dev/node_modules node_modules
 COPY . .
 
 # [optional] tests & build
-# ENV NODE_ENV=production
-# ENV CHANNEL_TOKEN="Fqw9Pk5YaUbtQ0xfTr6jTUPVZDgpNFWm"
-# ENV PAYSTACK_SECRET_KEY="sk_test_414679be0fe780fca20430fb20e338062bd35cf5"
 RUN bun run build
 
 # copy production dependencies and source code into final image

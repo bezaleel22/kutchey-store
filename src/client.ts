@@ -39,13 +39,13 @@ const fetchFn: RequestHandler = async ({ fetch, name, text, variables, session }
 
         if (session && !session.token)
             session.token = response.headers.get("vendure-auth-token") as string
-        // console.error({ name, success: true })
+        console.error({ name, success: true })
 
         return await response.json()
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-        // console.error({ name, success: false })
+        console.error({ name, success: false })
         return {}
     }
 
