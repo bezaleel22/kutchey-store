@@ -1,6 +1,10 @@
 FROM oven/bun:1.1.17 AS base
 WORKDIR /app
 
+ARG NODE_ENV
+ARG PUBLIC_CHANNEL_TOKEN
+ARG PAYSTACK_SECRET_KEY
+ARG PUBLIC_SHOP_API
 RUN env
 
 # install dependencies into temp directory
