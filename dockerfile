@@ -1,6 +1,8 @@
 FROM oven/bun:1.1.17 AS base
 WORKDIR /app
 
+RUN env
+
 # install dependencies into temp directory
 # this will cache them and speed up future builds
 FROM base AS install
