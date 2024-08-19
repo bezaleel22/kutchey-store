@@ -45,7 +45,7 @@ const fetchFn: RequestHandler = async ({ fetch, name, text, variables, session }
 
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-        console.error({ name, success: false })
+        console.error({ name, success: false, url })
         return {}
     }
 
