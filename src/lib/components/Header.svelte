@@ -85,10 +85,10 @@
     </div>
 
     <div class="header__user-actions">
-      <a href="wishlist.html" class="header__action-btn">
+      <!-- <a href="/wishlist" class="header__action-btn">
         <img src="/assets/img/icon-heart.svg" alt="" />
         <span class="count">3</span>
-      </a>
+      </a> -->
 
       <a href="/cart" class="header__action-btn">
         <img src="/assets/img/icon-cart.svg" alt="" />
