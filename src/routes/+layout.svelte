@@ -31,7 +31,7 @@
   <title>{SITE_TITLE}</title>
 </svelte:head>
 
-<ProgressBar color="#ff75a1" />
+<ProgressBar color="text-first" />
 <div id="page" class="site">
   <Header />
 

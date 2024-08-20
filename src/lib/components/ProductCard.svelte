@@ -68,7 +68,7 @@
       <form
         use:enhance
         method="POST"
-        action="?/addItem&id={product.id}&qty={1}"
+        action="/cart?/addItem&id={product.id}&qty={1}"
       >
         <button class="action__btn cart__btn" aria-label="Add To Cart">
           <i class="fi fi-rs-shopping-bag-add"></i>
