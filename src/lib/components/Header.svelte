@@ -4,7 +4,7 @@
 
   let showmenu: boolean = false;
 
-  // $: if (browser) console.log({ ...$state.activeOrder });
+  // $: if (browser) console.log({ showmenu });
 </script>
 
 <header class="header">
@@ -37,9 +37,16 @@
           <img src="/assets/img/logo.svg" alt="" />
         </a>
 
-        <div class="nav__close" id="nav-close">
+        <button
+          type="button"
+          on:click={() => {
+            showmenu = !showmenu;
+          }}
+          class="nav__close"
+          id="nav-close"
+        >
           <i class="fi fi-rs-cross-small"></i>
-        </div>
+        </button>
       </div>
 
       <ul class="nav__list">
@@ -91,7 +98,7 @@
       <button
         type="button"
         on:click={() => {
-          showmenu != showmenu;
+          showmenu = !showmenu;
         }}
         class="header__action-btn nav__toggle"
         id="nav-toggle"

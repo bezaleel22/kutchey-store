@@ -18,8 +18,9 @@
           class="product__img default h-full w-full object-cover"
         />
 
-        <img
-          src={product.featuredAsset?.preview}
+        <Asset
+          preview={product.featuredAsset?.preview}
+          preset='medium'
           alt=""
           class="product__img hover h-full w-full object-cover"
         />

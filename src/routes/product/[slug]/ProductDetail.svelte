@@ -1,6 +1,7 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
   import type { DetailedProduct$data } from "$houdini";
+  import Asset from "$lib/components/Asset.svelte";
   import { formatPrice } from "$lib/utils";
 
   export let product: DetailedProduct$data | null;
@@ -17,12 +18,13 @@
     optionId = optId;
     console.log({ variant });
   };
+
   const setVariant = (idx: number) => {
     variant = product?.variants[idx];
      console.log({ ...variant });
   };
 
-   console.log({ ...product });
+  //  console.log({ ...product });
 </script>
 
 {#if product && variant}
@@ -40,9 +42,10 @@
       <div class="flex">
         {#each product.variants as variant, i}
           <button on:click={() => setVariant(i)} class="p-2 h-24 w-24">
-            <img
-              src={variant.featuredAsset?.preview}
+            <Asset
+              preview={variant.featuredAsset?.preview}
               alt={product.name}
+              preset="medium"
               class="rounded-lg h-full w-full object-cover"
             />
           </button>

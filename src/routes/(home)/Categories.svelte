@@ -80,7 +80,7 @@
             <div class="aspect-video mb-5">
               <Asset
                 preview={category.featuredAsset?.preview}
-                preset="small"
+                preset='small'
                 alt=""
                 class="h-full w-full object-cover rounded-lg"
               />

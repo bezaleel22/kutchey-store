@@ -9,6 +9,6 @@
 	<picture>
 		<source type="image/avif" srcSet={preview + `?preset=${preset}&format=avif`} />
 		<source type="image/webp" srcSet={preview + `?preset=${preset}&format=webp`} />
-		<img src={preview + `?preset=${preset}&format=jpg`} alt={alt} class={className} />
+		<img src={preview + `?preset=${preset}&format=jpg`} alt={alt} class={className} loading="lazy"/>
 	</picture>
 {/if}

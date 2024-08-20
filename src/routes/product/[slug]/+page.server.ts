@@ -1,17 +1,21 @@
-import { AddItemToOrderStore, DetailedProductStore, OrderDetailStore, ProductStore } from '$houdini'
+import { AddItemToOrderStore, DetailedProductStore, OrderDetailStore, ProductStore, ProductsStore } from '$houdini'
 import { error } from '@sveltejs/kit'
 import { get } from 'svelte/store'
 import type { Actions, PageServerLoad } from './$types'
+import { getProducts } from '$lib/server/provider/shop'
 
 export const load = (async function (event) {
     const prod = new ProductStore()
+    const store = new ProductsStore()
     const result = (await prod.fetch({ variables: { slug: event.params.slug }, event })).data
     const product = result ? result.product : null
 
     const detailStore = new DetailedProductStore().get(product);
     const detail = get(detailStore)
+    const slug = detail?.collections[0].slug
     return {
         product: detail,
+        related: await getProducts({ slug, take: 5 }, store, event),
     }
 }) satisfies PageServerLoad
 
@@ -19,7 +23,7 @@ export const actions: Actions = {
     addItem: async (event) => {
         const id = event.url.searchParams.get("id") as string
         const quantity = Number(event.url.searchParams.get("qty"))
-    
+
         const store = new AddItemToOrderStore()
         const order = await store.mutate({ productVariantId: id, quantity }, { event })
         const addItemToOrder = order.data?.addItemToOrder
@@ -30,10 +34,10 @@ export const actions: Actions = {
         if (!addItemToOrder) {
             throw error(500, { message: 'Failed to add item to order', code: 'INTERNAL_SERVER_ERROR' });
         }
-    
+
         const detailStore = new OrderDetailStore().get(addItemToOrder)
         const activeOrder = get(detailStore)
-    
+
         return { success: true, activeOrder }
     },
 
