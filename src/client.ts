@@ -14,7 +14,7 @@ const fetchFn: RequestHandler = async ({ fetch, name, text, variables, session }
     };
 
     let url = SHOPAPI_URL
-    if (dev) {
+    if (!dev) {
         url = PUBLIC_SHOP_API
         headers = { ...headers, 'vendure-token': PUBLIC_CHANNEL_TOKEN }
         // console.log({ url, PUBLIC_CHANNEL_TOKEN })
