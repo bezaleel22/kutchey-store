@@ -11,7 +11,7 @@
     <h3 class="section__title">{title}</h3>
     {#each result.products as product}
       <div class="showcase__item">
-        <a href="details.html" class="showcase__img-box h-14">
+        <a href="/product/{product.slug}" class="showcase__img-box h-14">
           <img
             src={product.featuredAsset?.preview}
             alt=""
