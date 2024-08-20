@@ -33,7 +33,7 @@
       <div class="rounded-lg mb-3 h-5/6 max-[20px] border border-first p-5">
         <img
           bind:this={mainImg}
-          src={variant.featuredAsset?.preview}
+          src={variant.featuredAsset?.preview||product.featuredAsset?.preview}
           alt={product.name}
           class="rounded-lg h-full object-cover"
         />
