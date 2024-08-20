@@ -25,15 +25,10 @@
           </a>
 
           <div class="deals__price flex">
-            <span class="new__price"
-              >{formatPrice(product.price.min)}</span
-            >
-            <del class="old__price"
-              >{formatPrice(
-                product.price.min,
-                product.discountedPercent
-              )}</del
-            >
+            <span class="new__price">{formatPrice(product.price.min)}</span>
+            <del class="old__price">
+              {formatPrice(product.price.min, product.discountedPercent)}
+            </del>
           </div>
         </div>
       </div>

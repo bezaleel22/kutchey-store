@@ -31,7 +31,7 @@
   <title>{SITE_TITLE}</title>
 </svelte:head>
 
-<ProgressBar class="text-first" />
+<ProgressBar class="text-first" zIndex={9999}/>
 <div id="page" class="site">
   <Header />
 
