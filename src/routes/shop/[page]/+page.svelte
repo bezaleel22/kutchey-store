@@ -26,7 +26,7 @@
 
 <section class="products section--lg container">
   <p class="total__products">
-    We found <span>{totalItems}</span> items for you!
+    We found <span>{totalItems||0}</span> items for you!
   </p>
 
   {#if products}
@@ -57,8 +57,4 @@
       </li>
     {/if}
   </ul>
-</section>
-
-<section class="newsletter section home__newsletter">
-  <NewsLetter />
 </section>

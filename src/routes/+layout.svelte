@@ -12,6 +12,7 @@
   import { register } from "swiper/element";
   import { SITE_TITLE } from "$lib/constants";
   import NewsLetter from "$lib/components/NewsLetter.svelte";
+  import ProgressBar from "$lib/components/ProgressBar.svelte";
 
   export let data: LayoutData;
   register();
@@ -30,6 +31,7 @@
   <title>{SITE_TITLE}</title>
 </svelte:head>
 
+<ProgressBar color="#ff75a1" />
 <div id="page" class="site">
   <Header />
 

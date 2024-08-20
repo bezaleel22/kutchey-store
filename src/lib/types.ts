@@ -192,7 +192,7 @@ export type Product = {
     facetValues?: FacetValue[];
     featuredAsset?: FeaturedAsset;
     assets?: Asset[];
-    variants?: Variant[];
+    variants: Variant[];
     quantity: number;
     discountedPercent?: number;
     discountedPrice?: number;

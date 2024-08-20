@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { enhance } from "$app/forms";
   import { state } from "$lib/store";
   import type { Product } from "$lib/types";
   import { formatPrice } from "$lib/utils";
@@ -13,14 +14,14 @@
       <a href="/product/{product.slug}" class="product__images h-64">
         <Asset
           preview={product.featuredAsset?.preview}
-          preset='medium'
+          preset="medium"
           alt=""
           class="product__img default h-full w-full object-cover"
         />
 
         <Asset
           preview={product.featuredAsset?.preview}
-          preset='medium'
+          preset="medium"
           alt=""
           class="product__img hover h-full w-full object-cover"
         />
@@ -63,9 +64,16 @@
           {formatPrice(product.price.min, product.discountedPercent)}
         </del>
       </div>
-      <button class="action__btn cart__btn" aria-label="Add To Cart">
-        <i class="fi fi-rs-shopping-bag-add"></i>
-      </button>
+
+      <form
+        use:enhance
+        method="POST"
+        action="?/addItem&id={product.id}&qty={1}"
+      >
+        <button class="action__btn cart__btn" aria-label="Add To Cart">
+          <i class="fi fi-rs-shopping-bag-add"></i>
+        </button>
+      </form>
     </div>
   </div>
 {/if}
