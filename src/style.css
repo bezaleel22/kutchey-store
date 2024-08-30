@@ -2,11 +2,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Spartan:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
 /*=============== VARIABLES CSS ===============*/
+
 :root {
   --header-height: 4rem;
 
@@ -18,7 +19,7 @@
   --title-color: hsl(0, 0%, 13%);
   --text-color: hsl(154, 13%, 32%);
   --text-color-light: hsl(60, 1%, 56%);
-  --body-color: rgb(251, 253, 242);
+  --body-color: rgb(249, 252, 239);
   --container-color: hsl(0, 0%, 93%);
   --border-color: hsl(129, 36%, 85%);
   --border-color-alt: hsl(113, 15%, 90%);
@@ -26,8 +27,8 @@
 
   /*========== Font and typography ==========*/
   /* .5rem = 8px | 1rem = 16px ... */
-  --body-font: 'Lato', sans-serif;
-  --second-font: 'Spartan', sans-serif;
+  --body-font: "Lato", sans-serif;
+  --second-font: "Spartan", sans-serif;
   --big-font-size: 3.5rem;
   --h1-font-size: 2.75rem;
   --h2-font-size: 2rem;
@@ -407,37 +408,7 @@ table {
 .category__title {
   color: var(--text-color);
   font-size: var(--small-font-size);
-}
-
-/* Swiper class */
-.swiper {
-  overflow: initial;
-}
-
-.swiper-button-next::after,
-.swiper-button-prev::after {
-  content: '';
-}
-
-.swiper-button-next,
-.swiper-button-prev {
-  top: -1.875rem;
-  background-color: var(--first-color-alt);
-  border: 1px solid var(--border-color);
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  color: var(--first-color);
-  font-size: var(--tiny-font-size);
-}
-
-.swiper-button-prev {
-  left: initial;
-  right: 2.5rem;
-}
-
-.swiper-button-next {
-  right: 0;
+  text-transform: capitalize;
 }
 
 /*=============== PRODUCTS ===============*/
@@ -531,7 +502,7 @@ table {
 }
 
 .action__btn::before {
-  content: '';
+  content: "";
   top: -2px;
   border: 0.5rem solid transparent;
   border-top-color: var(--first-color);
@@ -653,18 +624,22 @@ table {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.deals__item:nth-child(1) {
-  background-image: url(../img/deals-1.jpg);
+/* .deals__item:nth-child(1) {
+  background-image: url(/assets/img/deals-1.webp);
 }
 
 .deals__item:nth-child(2) {
-  background-image: url(../img/deals-2.png);
+  background-image: url(/assets/img/deals-1.webp);
+} */
+
+.deals__bg {
+  background-image: url(/assets/img/deals-1.webp);
+  background-size: cover;
+  background-position: center;
 }
 
 .deals__item {
   padding: 3rem;
-  background-size: cover;
-  background-position: center;
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
@@ -711,7 +686,7 @@ table {
 }
 
 .countdown__amount::after {
-  content: ':';
+  content: ":";
   color: var(--title-color);
   font-size: var(--large-font-size);
   position: absolute;
@@ -762,7 +737,7 @@ table {
 }
 
 .showcase__wrapper .section__title::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   bottom: -1.3px;
@@ -1304,7 +1279,7 @@ table {
 }
 
 .divider::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 0;

@@ -33,7 +33,7 @@
       <a href="/shop" class="btn">Shop Now</a>
     </div>
 
-    <img src="/assets/img/category-13.jpg" alt="" class="home__img" />
+    <img src="/assets/img/category-13.png" alt="" class="home__img" />
   </div>
 </section>
 
