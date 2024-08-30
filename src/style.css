@@ -2,9 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Spartan:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
 /*=============== VARIABLES CSS ===============*/
 :root {
@@ -12,21 +12,22 @@
 
   /*========== Colors ==========*/
   /* Color mode HSL(hue, saturation, lightness) */
-  --first-color: hsl(176, 88%, 27%);
-  --first-color-alt: hsl(129, 44%, 94%);
+  --first-color: #4A730D;
+  --first-color-alt: #f7ffd8;
   --second-color: hsl(34, 94%, 87%);
   --title-color: hsl(0, 0%, 13%);
   --text-color: hsl(154, 13%, 32%);
   --text-color-light: hsl(60, 1%, 56%);
-  --body-color: hsl(0, 0%, 100%);
+  --body-color: rgb(251, 253, 242);
   --container-color: hsl(0, 0%, 93%);
   --border-color: hsl(129, 36%, 85%);
   --border-color-alt: hsl(113, 15%, 90%);
+  --bg-color: rgba(234, 242, 206, 1);
 
   /*========== Font and typography ==========*/
   /* .5rem = 8px | 1rem = 16px ... */
-  --body-font: "Lato", sans-serif;
-  --second-font: "Spartan", sans-serif;
+  --body-font: 'Lato', sans-serif;
+  --second-font: 'Spartan', sans-serif;
   --big-font-size: 3.5rem;
   --h1-font-size: 2.75rem;
   --h2-font-size: 2rem;
@@ -82,6 +83,9 @@ body {
 
 body {
   background-color: var(--body-color);
+  background-image: linear-gradient(#f7f7f7 1px, transparent 1px), linear-gradient(180deg, #f7f7f7 1px, transparent 1px), linear-gradient(#f7f7f7 1px, transparent 1px), linear-gradient(180deg, #f7f7f7 1px, transparent 1px);
+  background-size: 5px 5px, 5px 5px, 5px 5px, 5px 5px;
+  background-position: -1px -1px, -1px -1px, -1px -1px, -1px -1px;
 }
 
 h1,
@@ -403,7 +407,37 @@ table {
 .category__title {
   color: var(--text-color);
   font-size: var(--small-font-size);
-  text-transform: capitalize;
+}
+
+/* Swiper class */
+.swiper {
+  overflow: initial;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: '';
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  top: -1.875rem;
+  background-color: var(--first-color-alt);
+  border: 1px solid var(--border-color);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--first-color);
+  font-size: var(--tiny-font-size);
+}
+
+.swiper-button-prev {
+  left: initial;
+  right: 2.5rem;
+}
+
+.swiper-button-next {
+  right: 0;
 }
 
 /*=============== PRODUCTS ===============*/
@@ -497,7 +531,7 @@ table {
 }
 
 .action__btn::before {
-  content: "";
+  content: '';
   top: -2px;
   border: 0.5rem solid transparent;
   border-top-color: var(--first-color);
@@ -619,22 +653,18 @@ table {
   grid-template-columns: repeat(2, 1fr);
 }
 
-/* .deals__item:nth-child(1) {
-  background-image: url(/assets/img/deals-1.webp);
+.deals__item:nth-child(1) {
+  background-image: url(../img/deals-1.jpg);
 }
 
 .deals__item:nth-child(2) {
-  background-image: url(/assets/img/deals-1.webp);
-} */
-
-.deals__bg {
-  background-image: url(/assets/img/deals-1.webp);
-  background-size: cover;
-  background-position: center;
+  background-image: url(../img/deals-2.png);
 }
 
 .deals__item {
   padding: 3rem;
+  background-size: cover;
+  background-position: center;
   display: flex;
   flex-direction: column;
   row-gap: 1.5rem;
@@ -681,7 +711,7 @@ table {
 }
 
 .countdown__amount::after {
-  content: ":";
+  content: ':';
   color: var(--title-color);
   font-size: var(--large-font-size);
   position: absolute;
@@ -732,7 +762,7 @@ table {
 }
 
 .showcase__wrapper .section__title::before {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   bottom: -1.3px;
@@ -770,7 +800,7 @@ table {
 
 /*=============== NEWSLETTER ===============*/
 .newsletter {
-  background-color: hsl(166, 23%, 74%);
+  background-color: var(--bg-color);
 }
 
 .home__newsletter {
@@ -1274,7 +1304,7 @@ table {
 }
 
 .divider::before {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 0;
