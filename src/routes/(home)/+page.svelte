@@ -10,6 +10,7 @@
   import Showcase from "$lib/components/Showcase.svelte";
   import FlashSale from "./FlashSale.svelte";
   import { browser } from "$app/environment";
+  import Deals from "./Deals.svelte";
 
   let active = 0;
   let items = [
@@ -43,6 +44,10 @@
 </section>
 
 <section class="products section container">
+  <Deals result={data.flashSale} />
+</section>
+
+<section class="products section container">
   <Tabs bind:active {items}>
     <div slot="on-sale">
       <Products result={data.onSale} />
@@ -56,9 +61,7 @@
   </Tabs>
 </section>
 
-<section class="deals section">
-  <FlashSale result={data.flashSale} />
-</section>
+
 
 <section class="new__arrivals container section">
   <NewArival result={data.newArrivals} />

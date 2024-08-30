@@ -14,7 +14,7 @@
   /*========== Colors ==========*/
   /* Color mode HSL(hue, saturation, lightness) */
   --first-color: #4A730D;
-  --first-color-alt: #f7ffd8;
+  --first-color-alt: #faffe4;
   --second-color: hsl(34, 94%, 87%);
   --title-color: hsl(0, 0%, 13%);
   --text-color: hsl(154, 13%, 32%);

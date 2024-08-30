@@ -8,7 +8,7 @@ export const load: PageServerLoad = async function (event) {
         onSale: await getProducts({ slug: "on-sale", take: 10}, store, event),
         featured: await getProducts({ slug: "featured", take: 10 }, store, event),
         newProduct: await getProducts({ slug: "new-products", take: 10}, store, event),
-        flashSale: await getProducts({ slug: "top-deals", take: 2 }, store, event),
+        flashSale: await getProducts({ slug: "top-deals", take: 4 }, store, event),
         newArrivals: await getProducts({ slug: "new-arrivals", take: 10 }, store, event),
 
         topDeals: await getProducts({ slug: "top-deals", take: 3 }, store, event),
