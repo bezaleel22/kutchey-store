@@ -20,7 +20,7 @@
     let days = hours * 24;
     let timer: NodeJS.Timeout;
 
-    function remainder() {
+    const remainder = () => {
       let now = new Date().getTime();
       let distance = future - now;
       if (distance < 0) {
@@ -33,7 +33,7 @@
       h = Math.floor((distance % days) / hours);
       m = Math.floor((distance % hours) / mins);
       s = Math.floor((distance % mins) / secs);
-    }
+    };
 
     timer = setInterval(remainder, 1000);
     // }

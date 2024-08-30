@@ -75,7 +75,7 @@
         <swiper-slide>
           <a
             href={`/shop/${category.slug}`}
-            class="inline-block border rounded-2xl text-center border-first p-3"
+            class="inline-block border rounded-2xl text-center border-border p-3"
           >
             <div class="aspect-video mb-5">
               <Asset

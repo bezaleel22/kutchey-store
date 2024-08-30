@@ -14,7 +14,7 @@ export default {
         "text-light": "hsl(60, 1%, 56%)",
         body: "hsl(0, 0%, 100%)",
         container: "hsl(0, 0%, 93%)",
-        border: "hsl(129, 36%, 85%)",
+        border: "hsla(135, 65%, 20%, 0.137)",
         "border-alt": "hsl(113, 15%, 90%)",
       },
       fontFamily: {
